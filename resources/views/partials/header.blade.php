@@ -3,7 +3,7 @@
         <div class="navbar-header">
             <a href="{{ url('/') }}"
                class="navbar-brand">
-                Quickadmin
+                Samepage admin panel
             </a>
         </div>
         <a href="javascript:;"
