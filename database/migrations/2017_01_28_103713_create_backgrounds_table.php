@@ -15,6 +15,7 @@ class CreateBackgroundsTable extends Migration
         if(! Schema::hasTable('backgrounds')) {
             Schema::create('backgrounds', function (Blueprint $table) {
                 $table->increments('id');
+                $table->string('name');
                 $table->string('description')->nullable();
                 $table->string('background_image');
                 

@@ -24,7 +24,7 @@ class UpdateBackgroundsRequest extends FormRequest
     {
         return [
             
-            
+            'name' => 'required|unique:backgrounds,name,'.$this->route('background'),
             
             
         ];

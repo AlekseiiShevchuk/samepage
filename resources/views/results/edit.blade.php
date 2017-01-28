@@ -1,9 +1,9 @@
 @extends('layouts.app')
 
 @section('content')
-    <h3 class="page-title">@lang('quickadmin.game-results.title')</h3>
+    <h3 class="page-title">@lang('quickadmin.results.title')</h3>
     
-    {!! Form::model($game_result, ['method' => 'PUT', 'route' => ['game_results.update', $game_result->id]]) !!}
+    {!! Form::model($result, ['method' => 'PUT', 'route' => ['results.update', $result->id]]) !!}
 
     <div class="panel panel-default">
         <div class="panel-heading">
@@ -49,7 +49,7 @@
             </div>
             <div class="row">
                 <div class="col-xs-12 form-group">
-                    {!! Form::label('for_image_id', 'For image', ['class' => 'control-label']) !!}
+                    {!! Form::label('for_image_id', 'For image*', ['class' => 'control-label']) !!}
                     {!! Form::select('for_image_id', $for_images, old('for_image_id'), ['class' => 'form-control select2']) !!}
                     <p class="help-block"></p>
                     @if($errors->has('for_image_id'))
@@ -85,7 +85,7 @@
             </div>
             <div class="row">
                 <div class="col-xs-12 form-group">
-                    {!! Form::label('owner_base_result', 'Owner base result', ['class' => 'control-label']) !!}
+                    {!! Form::label('owner_base_result', 'Owner base result*', ['class' => 'control-label']) !!}
                     {!! Form::hidden('owner_base_result', 0) !!}
                     {!! Form::checkbox('owner_base_result', 1, old('owner_base_result')) !!}
                     <p class="help-block"></p>

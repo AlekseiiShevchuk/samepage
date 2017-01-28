@@ -12,7 +12,7 @@
         <div class="panel-body">
             <div class="row">
                 <div class="col-xs-12 form-group">
-                    {!! Form::label('name', 'Name', ['class' => 'control-label']) !!}
+                    {!! Form::label('name', 'Name*', ['class' => 'control-label']) !!}
                     {!! Form::text('name', old('name'), ['class' => 'form-control', 'placeholder' => '']) !!}
                     <p class="help-block"></p>
                     @if($errors->has('name'))
@@ -48,7 +48,7 @@
             </div>
             <div class="row">
                 <div class="col-xs-12 form-group">
-                    {!! Form::label('is_active', 'Is active', ['class' => 'control-label']) !!}
+                    {!! Form::label('is_active', 'Is active*', ['class' => 'control-label']) !!}
                     {!! Form::hidden('is_active', 0) !!}
                     {!! Form::checkbox('is_active', 1, true) !!}
                     <p class="help-block"></p>

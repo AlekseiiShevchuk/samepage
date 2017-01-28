@@ -23,7 +23,7 @@ class StoreScenariosRequest extends FormRequest
     public function rules()
     {
         return [
-            'name' => 'required',
+            'name' => 'required|unique:scenarios,name',
             
             'background_id' => 'required',
             'images' => 'required',

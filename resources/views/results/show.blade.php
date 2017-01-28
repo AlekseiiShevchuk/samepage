@@ -1,7 +1,7 @@
 @extends('layouts.app')
 
 @section('content')
-    <h3 class="page-title">@lang('quickadmin.game-results.title')</h3>
+    <h3 class="page-title">@lang('quickadmin.results.title')</h3>
 
     <div class="panel panel-default">
         <div class="panel-heading">
@@ -13,32 +13,32 @@
                 <div class="col-md-6">
                     <table class="table table-bordered table-striped">
                         <tr>
-                            <th>@lang('quickadmin.game-results.fields.x-coordinate')</th>
-                            <td>{{ $game_result->x_coordinate }}</td>
+                            <th>@lang('quickadmin.results.fields.x-coordinate')</th>
+                            <td>{{ $result->x_coordinate }}</td>
                         </tr>
                         <tr>
-                            <th>@lang('quickadmin.game-results.fields.y-coordinate')</th>
-                            <td>{{ $game_result->y_coordinate }}</td>
+                            <th>@lang('quickadmin.results.fields.y-coordinate')</th>
+                            <td>{{ $result->y_coordinate }}</td>
                         </tr>
                         <tr>
-                            <th>@lang('quickadmin.game-results.fields.rotary-angle')</th>
-                            <td>{{ $game_result->rotary_angle }}</td>
+                            <th>@lang('quickadmin.results.fields.rotary-angle')</th>
+                            <td>{{ $result->rotary_angle }}</td>
                         </tr>
                         <tr>
-                            <th>@lang('quickadmin.game-results.fields.for-image')</th>
-                            <td>{{ $game_result->for_image->name or '' }}</td>
+                            <th>@lang('quickadmin.results.fields.for-image')</th>
+                            <td>{{ $result->for_image->name or '' }}</td>
                         </tr>
                         <tr>
-                            <th>@lang('quickadmin.game-results.fields.by-player')</th>
-                            <td>{{ $game_result->by_player->device_id or '' }}</td>
+                            <th>@lang('quickadmin.results.fields.by-player')</th>
+                            <td>{{ $result->by_player->nickname or '' }}</td>
                         </tr>
                         <tr>
-                            <th>@lang('quickadmin.game-results.fields.for-game')</th>
-                            <td>{{ $game_result->for_game->game_id or '' }}</td>
+                            <th>@lang('quickadmin.results.fields.for-game')</th>
+                            <td>{{ $result->for_game->name or '' }}</td>
                         </tr>
                         <tr>
-                            <th>@lang('quickadmin.game-results.fields.owner-base-result')</th>
-                            <td>{{ Form::checkbox("owner_base_result", 1, $game_result->owner_base_result == 1, ["disabled"]) }}</td>
+                            <th>@lang('quickadmin.results.fields.owner-base-result')</th>
+                            <td>{{ Form::checkbox("owner_base_result", 1, $result->owner_base_result == 1, ["disabled"]) }}</td>
                         </tr>
                     </table>
                 </div>
@@ -106,7 +106,6 @@
     <thead>
         <tr>
             <th>@lang('quickadmin.games.fields.name')</th>
-                        <th>@lang('quickadmin.games.fields.game-id')</th>
                         <th>@lang('quickadmin.games.fields.owner')</th>
                         <th>@lang('quickadmin.games.fields.players')</th>
                         <th>@lang('quickadmin.games.fields.is-active')</th>
@@ -120,7 +119,6 @@
             @foreach ($games as $game)
                 <tr data-entry-id="{{ $game->id }}">
                     <td>{{ $game->name }}</td>
-                                <td>{{ $game->game_id }}</td>
                                 <td>{{ $game->owner->nickname or '' }}</td>
                                 <td>
                                     @foreach ($game->players as $singlePlayers)
@@ -154,7 +152,7 @@
             @endforeach
         @else
             <tr>
-                <td colspan="8">@lang('quickadmin.no_entries_in_table')</td>
+                <td colspan="7">@lang('quickadmin.no_entries_in_table')</td>
             </tr>
         @endif
     </tbody>
@@ -164,7 +162,7 @@
 
             <p>&nbsp;</p>
 
-            <a href="{{ route('game_results.index') }}" class="btn btn-default">@lang('quickadmin.back_to_list')</a>
+            <a href="{{ route('results.index') }}" class="btn btn-default">@lang('quickadmin.back_to_list')</a>
         </div>
     </div>
 @stop

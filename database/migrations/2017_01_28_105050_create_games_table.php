@@ -3,7 +3,7 @@
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateUsersTable extends Migration
+class CreateGamesTable extends Migration
 {
     /**
      * Run the migrations.
@@ -12,15 +12,13 @@ class CreateUsersTable extends Migration
      */
     public function up()
     {
-        if(! Schema::hasTable('users')) {
-            Schema::create('users', function (Blueprint $table) {
+        if(! Schema::hasTable('games')) {
+            Schema::create('games', function (Blueprint $table) {
                 $table->increments('id');
                 $table->string('name');
-                $table->string('email');
-                $table->string('password');
-                $table->integer('role_id')->unsigned()->nullable();
-                $table->foreign('role_id', 'fk_9807_role_role_id_user')->references('id')->on('roles');
-                $table->string('remember_token')->nullable();
+                $table->integer('owner_id')->unsigned()->nullable();
+                $table->foreign('owner_id', 'fk_9932_player_owner_id_game')->references('id')->on('players');
+                $table->tinyInteger('is_active')->default(1);
                 
                 $table->timestamps();
                 $table->softDeletes();
@@ -37,6 +35,6 @@ class CreateUsersTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('users');
+        Schema::dropIfExists('games');
     }
 }

@@ -107,12 +107,11 @@ class ImagesController extends Controller
             return abort(401);
         }
         $relations = [
-            'game_results' => \App\GameResult::where('for_image_id', $id)->get(),
             'scenarios' => \App\Scenario::whereHas('images',
                     function ($query) use ($id) {
                         $query->where('id', $id);
                     })->get(),
-            'image_coordinates' => \App\ImageCoordinate::where('for_image_id', $id)->get(),
+            'results' => \App\Result::where('for_image_id', $id)->get(),
         ];
 
         $image = Image::findOrFail($id);

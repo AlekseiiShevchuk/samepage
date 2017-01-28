@@ -22,7 +22,7 @@
                         </tr>
                         <tr>
                             <th>@lang('quickadmin.scenarios.fields.background')</th>
-                            <td>{{ $scenario->background->description or '' }}</td>
+                            <td>{{ $scenario->background->name or '' }}</td>
                         </tr>
                         <tr>
                             <th>@lang('quickadmin.scenarios.fields.images')</th>

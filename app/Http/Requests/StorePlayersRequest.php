@@ -25,7 +25,7 @@ class StorePlayersRequest extends FormRequest
         return [
             'device_id' => 'required|unique:players,device_id',
             'nickname' => 'required',
-            'results.*' => 'exists:game_results,id',
+            'results.*' => 'exists:results,id',
         ];
     }
 }

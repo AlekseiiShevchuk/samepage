@@ -5,7 +5,7 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Database\Eloquent\Model;
 
 /**
- * Class GameResult
+ * Class Result
  *
  * @package App
  * @property integer $x_coordinate
@@ -16,7 +16,7 @@ use Illuminate\Database\Eloquent\Model;
  * @property string $for_game
  * @property tinyInteger $owner_base_result
 */
-class GameResult extends Model
+class Result extends Model
 {
     use SoftDeletes;
     

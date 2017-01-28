@@ -24,9 +24,9 @@ class UpdatePlayersRequest extends FormRequest
     {
         return [
             
-            'device_id' => 'required|unique:players,device_id,'.$this->route('player'),
+            //'device_id' => 'required|unique:players,device_id,'.$this->route('player'),
             'nickname' => 'required',
-            'results.*' => 'exists:game_results,id',
+            'results.*' => 'exists:results,id',
         ];
     }
 }

@@ -17,10 +17,6 @@
                             <td>{{ $game->name }}</td>
                         </tr>
                         <tr>
-                            <th>@lang('quickadmin.games.fields.game-id')</th>
-                            <td>{{ $game->game_id }}</td>
-                        </tr>
-                        <tr>
                             <th>@lang('quickadmin.games.fields.owner')</th>
                             <td>{{ $game->owner->nickname or '' }}</td>
                         </tr>
@@ -49,103 +45,51 @@
             </div><!-- Nav tabs -->
 <ul class="nav nav-tabs" role="tablist">
     
-<li role="presentation" class="active"><a href="#imagecoordinates" aria-controls="imagecoordinates" role="tab" data-toggle="tab">Image coordinates</a></li>
-<li role="presentation" class=""><a href="#gameresults" aria-controls="gameresults" role="tab" data-toggle="tab">Game results</a></li>
+<li role="presentation" class="active"><a href="#results" aria-controls="results" role="tab" data-toggle="tab">Results</a></li>
 </ul>
 
 <!-- Tab panes -->
 <div class="tab-content">
     
-<div role="tabpanel" class="tab-pane active" id="imagecoordinates">
-<table class="table table-bordered table-striped {{ count($image_coordinates) > 0 ? 'datatable' : '' }}">
+<div role="tabpanel" class="tab-pane active" id="results">
+<table class="table table-bordered table-striped {{ count($results) > 0 ? 'datatable' : '' }}">
     <thead>
         <tr>
-            <th>@lang('quickadmin.image-coordinates.fields.x-coordinate')</th>
-                        <th>@lang('quickadmin.image-coordinates.fields.y-coordinate')</th>
-                        <th>@lang('quickadmin.image-coordinates.fields.rotary-angle')</th>
-                        <th>@lang('quickadmin.image-coordinates.fields.for-image')</th>
-                        <th>@lang('quickadmin.image-coordinates.fields.by-player')</th>
-                        <th>@lang('quickadmin.image-coordinates.fields.for-game')</th>
+            <th>@lang('quickadmin.results.fields.x-coordinate')</th>
+                        <th>@lang('quickadmin.results.fields.y-coordinate')</th>
+                        <th>@lang('quickadmin.results.fields.rotary-angle')</th>
+                        <th>@lang('quickadmin.results.fields.for-image')</th>
+                        <th>@lang('quickadmin.results.fields.by-player')</th>
+                        <th>@lang('quickadmin.results.fields.for-game')</th>
+                        <th>@lang('quickadmin.results.fields.owner-base-result')</th>
                         <th>&nbsp;</th>
         </tr>
     </thead>
 
     <tbody>
-        @if (count($image_coordinates) > 0)
-            @foreach ($image_coordinates as $image_coordinate)
-                <tr data-entry-id="{{ $image_coordinate->id }}">
-                    <td>{{ $image_coordinate->x_coordinate }}</td>
-                                <td>{{ $image_coordinate->y_coordinate }}</td>
-                                <td>{{ $image_coordinate->rotary_angle }}</td>
-                                <td>{{ $image_coordinate->for_image->name or '' }}</td>
-                                <td>{{ $image_coordinate->by_player->device_id or '' }}</td>
-                                <td>{{ $image_coordinate->for_game->game_id or '' }}</td>
+        @if (count($results) > 0)
+            @foreach ($results as $result)
+                <tr data-entry-id="{{ $result->id }}">
+                    <td>{{ $result->x_coordinate }}</td>
+                                <td>{{ $result->y_coordinate }}</td>
+                                <td>{{ $result->rotary_angle }}</td>
+                                <td>{{ $result->for_image->name or '' }}</td>
+                                <td>{{ $result->by_player->nickname or '' }}</td>
+                                <td>{{ $result->for_game->name or '' }}</td>
+                                <td>{{ Form::checkbox("owner_base_result", 1, $result->owner_base_result == 1, ["disabled"]) }}</td>
                                 <td>
-                                    @can('image_coordinate_view')
-                                    <a href="{{ route('image_coordinates.show',[$image_coordinate->id]) }}" class="btn btn-xs btn-primary">@lang('quickadmin.view')</a>
+                                    @can('result_view')
+                                    <a href="{{ route('results.show',[$result->id]) }}" class="btn btn-xs btn-primary">@lang('quickadmin.view')</a>
                                     @endcan
-                                    @can('image_coordinate_edit')
-                                    <a href="{{ route('image_coordinates.edit',[$image_coordinate->id]) }}" class="btn btn-xs btn-info">@lang('quickadmin.edit')</a>
+                                    @can('result_edit')
+                                    <a href="{{ route('results.edit',[$result->id]) }}" class="btn btn-xs btn-info">@lang('quickadmin.edit')</a>
                                     @endcan
-                                    @can('image_coordinate_delete')
+                                    @can('result_delete')
                                     {!! Form::open(array(
                                         'style' => 'display: inline-block;',
                                         'method' => 'DELETE',
                                         'onsubmit' => "return confirm('".trans("quickadmin.are_you_sure")."');",
-                                        'route' => ['image_coordinates.destroy', $image_coordinate->id])) !!}
-                                    {!! Form::submit(trans('quickadmin.delete'), array('class' => 'btn btn-xs btn-danger')) !!}
-                                    {!! Form::close() !!}
-                                    @endcan
-                                </td>
-                </tr>
-            @endforeach
-        @else
-            <tr>
-                <td colspan="8">@lang('quickadmin.no_entries_in_table')</td>
-            </tr>
-        @endif
-    </tbody>
-</table>
-</div>
-<div role="tabpanel" class="tab-pane " id="gameresults">
-<table class="table table-bordered table-striped {{ count($game_results) > 0 ? 'datatable' : '' }}">
-    <thead>
-        <tr>
-            <th>@lang('quickadmin.game-results.fields.x-coordinate')</th>
-                        <th>@lang('quickadmin.game-results.fields.y-coordinate')</th>
-                        <th>@lang('quickadmin.game-results.fields.rotary-angle')</th>
-                        <th>@lang('quickadmin.game-results.fields.for-image')</th>
-                        <th>@lang('quickadmin.game-results.fields.by-player')</th>
-                        <th>@lang('quickadmin.game-results.fields.for-game')</th>
-                        <th>@lang('quickadmin.game-results.fields.owner-base-result')</th>
-                        <th>&nbsp;</th>
-        </tr>
-    </thead>
-
-    <tbody>
-        @if (count($game_results) > 0)
-            @foreach ($game_results as $game_result)
-                <tr data-entry-id="{{ $game_result->id }}">
-                    <td>{{ $game_result->x_coordinate }}</td>
-                                <td>{{ $game_result->y_coordinate }}</td>
-                                <td>{{ $game_result->rotary_angle }}</td>
-                                <td>{{ $game_result->for_image->name or '' }}</td>
-                                <td>{{ $game_result->by_player->device_id or '' }}</td>
-                                <td>{{ $game_result->for_game->game_id or '' }}</td>
-                                <td>{{ Form::checkbox("owner_base_result", 1, $game_result->owner_base_result == 1, ["disabled"]) }}</td>
-                                <td>
-                                    @can('game_result_view')
-                                    <a href="{{ route('game_results.show',[$game_result->id]) }}" class="btn btn-xs btn-primary">@lang('quickadmin.view')</a>
-                                    @endcan
-                                    @can('game_result_edit')
-                                    <a href="{{ route('game_results.edit',[$game_result->id]) }}" class="btn btn-xs btn-info">@lang('quickadmin.edit')</a>
-                                    @endcan
-                                    @can('game_result_delete')
-                                    {!! Form::open(array(
-                                        'style' => 'display: inline-block;',
-                                        'method' => 'DELETE',
-                                        'onsubmit' => "return confirm('".trans("quickadmin.are_you_sure")."');",
-                                        'route' => ['game_results.destroy', $game_result->id])) !!}
+                                        'route' => ['results.destroy', $result->id])) !!}
                                     {!! Form::submit(trans('quickadmin.delete'), array('class' => 'btn btn-xs btn-danger')) !!}
                                     {!! Form::close() !!}
                                     @endcan

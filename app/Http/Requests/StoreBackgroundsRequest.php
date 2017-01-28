@@ -23,7 +23,7 @@ class StoreBackgroundsRequest extends FormRequest
     public function rules()
     {
         return [
-            
+            'name' => 'required|unique:backgrounds,name',
             
             'background_image' => 'required',
         ];

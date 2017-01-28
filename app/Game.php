@@ -9,7 +9,6 @@ use Illuminate\Database\Eloquent\Model;
  *
  * @package App
  * @property string $name
- * @property string $game_id
  * @property string $owner
  * @property tinyInteger $is_active
 */
@@ -17,7 +16,7 @@ class Game extends Model
 {
     use SoftDeletes;
     
-    protected $fillable = ['name', 'game_id', 'is_active', 'owner_id'];
+    protected $fillable = ['name', 'is_active', 'owner_id'];
     
 
     /**
@@ -41,7 +40,7 @@ class Game extends Model
     
     public function results()
     {
-        return $this->belongsToMany(GameResult::class, 'game_game_result')->withTrashed();
+        return $this->belongsToMany(Result::class, 'game_result')->withTrashed();
     }
     
 }

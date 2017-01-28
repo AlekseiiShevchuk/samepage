@@ -98,20 +98,19 @@
             </li>
             @endcan
             @can('game_access')
-                <li class="{{ $request->segment(1) == 'games' ? 'active active-sub' : '' }}">
-                    <a href="{{ route('games.index') }}">
-                        <i class="fa fa-gears"></i>
-                        <span class="title">
-                                @lang('quickadmin.games.title')
-                            </span>
-                    </a>
-                </li>
-            @endcan
-            @can('game_result_access')
-            <li class="{{ $request->segment(1) == 'game_results' ? 'active' : '' }}">
-                <a href="{{ route('game_results.index') }}">
+            <li class="{{ $request->segment(1) == 'games' ? 'active' : '' }}">
+                <a href="{{ route('games.index') }}">
                     <i class="fa fa-gears"></i>
-                    <span class="title">@lang('quickadmin.game-results.title')</span>
+                    <span class="title">@lang('quickadmin.games.title')</span>
+                </a>
+            </li>
+            @endcan
+            
+            @can('result_access')
+            <li class="{{ $request->segment(1) == 'results' ? 'active' : '' }}">
+                <a href="{{ route('results.index') }}">
+                    <i class="fa fa-gears"></i>
+                    <span class="title">@lang('quickadmin.results.title')</span>
                 </a>
             </li>
             @endcan

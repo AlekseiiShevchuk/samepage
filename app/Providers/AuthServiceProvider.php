@@ -67,20 +67,8 @@ class AuthServiceProvider extends ServiceProvider
             return in_array($user->role_id, [1]);
         });
 
-        // Auth gates for: Players
-        Gate::define('player_access', function ($user) {
-            return in_array($user->role_id, [1]);
-        });
-        Gate::define('player_create', function ($user) {
-            return in_array($user->role_id, [1]);
-        });
-        Gate::define('player_edit', function ($user) {
-            return in_array($user->role_id, [1]);
-        });
-        Gate::define('player_view', function ($user) {
-            return in_array($user->role_id, [1]);
-        });
-        Gate::define('player_delete', function ($user) {
+        // Auth gates for: Game mod
+        Gate::define('game_mod_access', function ($user) {
             return in_array($user->role_id, [1]);
         });
 
@@ -101,23 +89,6 @@ class AuthServiceProvider extends ServiceProvider
             return in_array($user->role_id, [1]);
         });
 
-        // Auth gates for: Scenarios
-        Gate::define('scenario_access', function ($user) {
-            return in_array($user->role_id, [1]);
-        });
-        Gate::define('scenario_create', function ($user) {
-            return in_array($user->role_id, [1]);
-        });
-        Gate::define('scenario_edit', function ($user) {
-            return in_array($user->role_id, [1]);
-        });
-        Gate::define('scenario_view', function ($user) {
-            return in_array($user->role_id, [1]);
-        });
-        Gate::define('scenario_delete', function ($user) {
-            return in_array($user->role_id, [1]);
-        });
-
         // Auth gates for: Images
         Gate::define('image_access', function ($user) {
             return in_array($user->role_id, [1]);
@@ -135,8 +106,37 @@ class AuthServiceProvider extends ServiceProvider
             return in_array($user->role_id, [1]);
         });
 
-        // Auth gates for: Game mod
-        Gate::define('game_mod_access', function ($user) {
+        // Auth gates for: Scenarios
+        Gate::define('scenario_access', function ($user) {
+            return in_array($user->role_id, [1]);
+        });
+        Gate::define('scenario_create', function ($user) {
+            return in_array($user->role_id, [1]);
+        });
+        Gate::define('scenario_edit', function ($user) {
+            return in_array($user->role_id, [1]);
+        });
+        Gate::define('scenario_view', function ($user) {
+            return in_array($user->role_id, [1]);
+        });
+        Gate::define('scenario_delete', function ($user) {
+            return in_array($user->role_id, [1]);
+        });
+
+        // Auth gates for: Players
+        Gate::define('player_access', function ($user) {
+            return in_array($user->role_id, [1]);
+        });
+        Gate::define('player_create', function ($user) {
+            return in_array($user->role_id, [1]);
+        });
+        Gate::define('player_edit', function ($user) {
+            return in_array($user->role_id, [1]);
+        });
+        Gate::define('player_view', function ($user) {
+            return in_array($user->role_id, [1]);
+        });
+        Gate::define('player_delete', function ($user) {
             return in_array($user->role_id, [1]);
         });
 
@@ -157,20 +157,20 @@ class AuthServiceProvider extends ServiceProvider
             return in_array($user->role_id, [1]);
         });
 
-        // Auth gates for: Game results
-        Gate::define('game_result_access', function ($user) {
+        // Auth gates for: Results
+        Gate::define('result_access', function ($user) {
             return in_array($user->role_id, [1]);
         });
-        Gate::define('game_result_create', function ($user) {
+        Gate::define('result_create', function ($user) {
             return in_array($user->role_id, [1]);
         });
-        Gate::define('game_result_edit', function ($user) {
+        Gate::define('result_edit', function ($user) {
             return in_array($user->role_id, [1]);
         });
-        Gate::define('game_result_view', function ($user) {
+        Gate::define('result_view', function ($user) {
             return in_array($user->role_id, [1]);
         });
-        Gate::define('game_result_delete', function ($user) {
+        Gate::define('result_delete', function ($user) {
             return in_array($user->role_id, [1]);
         });
 

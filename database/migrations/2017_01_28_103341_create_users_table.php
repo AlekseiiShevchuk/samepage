@@ -3,7 +3,7 @@
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateImagesTable extends Migration
+class CreateUsersTable extends Migration
 {
     /**
      * Run the migrations.
@@ -12,12 +12,15 @@ class CreateImagesTable extends Migration
      */
     public function up()
     {
-        if(! Schema::hasTable('images')) {
-            Schema::create('images', function (Blueprint $table) {
+        if(! Schema::hasTable('users')) {
+            Schema::create('users', function (Blueprint $table) {
                 $table->increments('id');
                 $table->string('name');
-                $table->string('description')->nullable();
-                $table->string('image');
+                $table->string('email');
+                $table->string('password');
+                $table->integer('role_id')->unsigned()->nullable();
+                $table->foreign('role_id', 'fk_9926_role_role_id_user')->references('id')->on('roles');
+                $table->string('remember_token')->nullable();
                 
                 $table->timestamps();
                 $table->softDeletes();
@@ -34,6 +37,6 @@ class CreateImagesTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('images');
+        Schema::dropIfExists('users');
     }
 }

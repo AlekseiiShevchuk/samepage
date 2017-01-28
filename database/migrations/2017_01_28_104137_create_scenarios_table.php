@@ -3,7 +3,7 @@
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateGamesTable extends Migration
+class CreateScenariosTable extends Migration
 {
     /**
      * Run the migrations.
@@ -12,11 +12,13 @@ class CreateGamesTable extends Migration
      */
     public function up()
     {
-        if(! Schema::hasTable('games')) {
-            Schema::create('games', function (Blueprint $table) {
+        if(! Schema::hasTable('scenarios')) {
+            Schema::create('scenarios', function (Blueprint $table) {
                 $table->increments('id');
-                $table->string('name')->nullable();
-                $table->string('game_id');
+                $table->string('name');
+                $table->string('description')->nullable();
+                $table->integer('background_id')->unsigned()->nullable();
+                $table->foreign('background_id', 'fk_9929_background_background_id_scenario')->references('id')->on('backgrounds');
                 
                 $table->timestamps();
                 $table->softDeletes();
@@ -33,6 +35,6 @@ class CreateGamesTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('games');
+        Schema::dropIfExists('scenarios');
     }
 }

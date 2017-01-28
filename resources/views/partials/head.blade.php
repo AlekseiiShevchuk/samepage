@@ -1,6 +1,6 @@
 <meta charset="utf-8">
 <title>
-    Samepage admin panel
+    Quickadmin
 </title>
 
 <meta http-equiv="X-UA-Compatible"

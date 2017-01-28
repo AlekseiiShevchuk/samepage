@@ -23,12 +23,11 @@ class StoreGamesRequest extends FormRequest
     public function rules()
     {
         return [
-            
-            
+            'name' => 'required|unique:games,name',
             'owner_id' => 'required',
             'players.*' => 'exists:players,id',
-            
-            'results.*' => 'exists:game_results,id',
+            'is_active' => 'required',
+            'results.*' => 'exists:results,id',
         ];
     }
 }

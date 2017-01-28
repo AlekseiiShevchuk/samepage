@@ -53,7 +53,7 @@
                 <tr data-entry-id="{{ $scenario->id }}">
                     <td>{{ $scenario->name }}</td>
                                 <td>{{ $scenario->description }}</td>
-                                <td>{{ $scenario->background->description or '' }}</td>
+                                <td>{{ $scenario->background->name or '' }}</td>
                                 <td>
                                     @foreach ($scenario->images as $singleImages)
                                         <span class="label label-info label-many">{{ $singleImages->name }}</span>

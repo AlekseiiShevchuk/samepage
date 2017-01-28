@@ -38,7 +38,7 @@ class GamesController extends Controller
         $relations = [
             'owners' => \App\Player::get()->pluck('nickname', 'id')->prepend('Please select', ''),
             'players' => \App\Player::get()->pluck('nickname', 'id'),
-            'results' => \App\GameResult::get()->pluck('x_coordinate', 'id'),
+            'results' => \App\Result::get()->pluck('x_coordinate', 'id'),
         ];
 
         return view('games.create', $relations);
@@ -77,7 +77,7 @@ class GamesController extends Controller
         $relations = [
             'owners' => \App\Player::get()->pluck('nickname', 'id')->prepend('Please select', ''),
             'players' => \App\Player::get()->pluck('nickname', 'id'),
-            'results' => \App\GameResult::get()->pluck('x_coordinate', 'id'),
+            'results' => \App\Result::get()->pluck('x_coordinate', 'id'),
         ];
 
         $game = Game::findOrFail($id);
@@ -120,9 +120,8 @@ class GamesController extends Controller
         $relations = [
             'owners' => \App\Player::get()->pluck('nickname', 'id')->prepend('Please select', ''),
             'players' => \App\Player::get()->pluck('nickname', 'id'),
-            'results' => \App\GameResult::get()->pluck('x_coordinate', 'id'),
-            'image_coordinates' => \App\ImageCoordinate::where('for_game_id', $id)->get(),
-            'game_results' => \App\GameResult::where('for_game_id', $id)->get(),
+            'results' => \App\Result::get()->pluck('x_coordinate', 'id'),
+            'results' => \App\Result::where('for_game_id', $id)->get(),
         ];
 
         $game = Game::findOrFail($id);

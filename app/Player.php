@@ -20,7 +20,7 @@ class Player extends Model
     
     public function results()
     {
-        return $this->belongsToMany(GameResult::class, 'game_result_player')->withTrashed();
+        return $this->belongsToMany(Result::class, 'player_result')->withTrashed();
     }
     
 }

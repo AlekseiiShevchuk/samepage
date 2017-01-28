@@ -22,7 +22,6 @@
                         @endcan
 
                         <th>@lang('quickadmin.games.fields.name')</th>
-                        <th>@lang('quickadmin.games.fields.game-id')</th>
                         <th>@lang('quickadmin.games.fields.owner')</th>
                         <th>@lang('quickadmin.games.fields.players')</th>
                         <th>@lang('quickadmin.games.fields.is-active')</th>
@@ -40,7 +39,6 @@
                                 @endcan
 
                                 <td>{{ $game->name }}</td>
-                                <td>{{ $game->game_id }}</td>
                                 <td>{{ $game->owner->nickname or '' }}</td>
                                 <td>
                                     @foreach ($game->players as $singlePlayers)
@@ -74,7 +72,7 @@
                         @endforeach
                     @else
                         <tr>
-                            <td colspan="8">@lang('quickadmin.no_entries_in_table')</td>
+                            <td colspan="7">@lang('quickadmin.no_entries_in_table')</td>
                         </tr>
                     @endif
                 </tbody>
