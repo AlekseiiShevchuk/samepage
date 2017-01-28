@@ -73,7 +73,7 @@ class ScenariosController extends Controller
             return abort(401);
         }
         $relations = [
-            'backgrounds' => \App\Background::get()->pluck('description', 'id')->prepend('Please select', ''),
+            'backgrounds' => \App\Background::get()->pluck('name', 'id')->prepend('Please select', ''),
             'images' => \App\Image::get()->pluck('name', 'id'),
         ];
 
