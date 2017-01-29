@@ -38,7 +38,9 @@ class GamesController extends Controller
         $relations = [
             'owners' => \App\Player::get()->pluck('nickname', 'id')->prepend('Please select', ''),
             'players' => \App\Player::get()->pluck('nickname', 'id'),
-            'results' => \App\Result::get()->pluck('x_coordinate', 'id'),
+            'owner_etalon_results' => \App\GameResult::get()->pluck('is_owner_etalon', 'id')->prepend('Please select', ''),
+            'scenarios' => \App\Scenario::get()->pluck('name', 'id')->prepend('Please select', ''),
+            'game_results' => \App\GameResult::get()->pluck('is_owner_etalon', 'id'),
         ];
 
         return view('games.create', $relations);
@@ -57,7 +59,7 @@ class GamesController extends Controller
         }
         $game = Game::create($request->all());
         $game->players()->sync(array_filter((array)$request->input('players')));
-        $game->results()->sync(array_filter((array)$request->input('results')));
+        $game->game_results()->sync(array_filter((array)$request->input('game_results')));
 
         return redirect()->route('games.index');
     }
@@ -77,7 +79,9 @@ class GamesController extends Controller
         $relations = [
             'owners' => \App\Player::get()->pluck('nickname', 'id')->prepend('Please select', ''),
             'players' => \App\Player::get()->pluck('nickname', 'id'),
-            'results' => \App\Result::get()->pluck('x_coordinate', 'id'),
+            'owner_etalon_results' => \App\GameResult::get()->pluck('is_owner_etalon', 'id')->prepend('Please select', ''),
+            'scenarios' => \App\Scenario::get()->pluck('name', 'id')->prepend('Please select', ''),
+            'game_results' => \App\GameResult::get()->pluck('is_owner_etalon', 'id'),
         ];
 
         $game = Game::findOrFail($id);
@@ -100,7 +104,7 @@ class GamesController extends Controller
         $game = Game::findOrFail($id);
         $game->update($request->all());
         $game->players()->sync(array_filter((array)$request->input('players')));
-        $game->results()->sync(array_filter((array)$request->input('results')));
+        $game->game_results()->sync(array_filter((array)$request->input('game_results')));
 
         return redirect()->route('games.index');
     }
@@ -120,8 +124,9 @@ class GamesController extends Controller
         $relations = [
             'owners' => \App\Player::get()->pluck('nickname', 'id')->prepend('Please select', ''),
             'players' => \App\Player::get()->pluck('nickname', 'id'),
-            'results' => \App\Result::get()->pluck('x_coordinate', 'id'),
-            'results' => \App\Result::where('for_game_id', $id)->get(),
+            'owner_etalon_results' => \App\GameResult::get()->pluck('is_owner_etalon', 'id')->prepend('Please select', ''),
+            'scenarios' => \App\Scenario::get()->pluck('name', 'id')->prepend('Please select', ''),
+            'game_results' => \App\GameResult::where('for_game_id', $id)->get(),
         ];
 
         $game = Game::findOrFail($id);

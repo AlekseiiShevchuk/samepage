@@ -34,7 +34,77 @@
                         </tr>
                     </table>
                 </div>
-            </div>
+            </div><!-- Nav tabs -->
+<ul class="nav nav-tabs" role="tablist">
+    
+<li role="presentation" class="active"><a href="#games" aria-controls="games" role="tab" data-toggle="tab">Games</a></li>
+</ul>
+
+<!-- Tab panes -->
+<div class="tab-content">
+    
+<div role="tabpanel" class="tab-pane active" id="games">
+<table class="table table-bordered table-striped {{ count($games) > 0 ? 'datatable' : '' }}">
+    <thead>
+        <tr>
+            <th>@lang('quickadmin.games.fields.name')</th>
+                        <th>@lang('quickadmin.games.fields.owner')</th>
+                        <th>@lang('quickadmin.games.fields.players')</th>
+                        <th>@lang('quickadmin.games.fields.is-active')</th>
+                        <th>@lang('quickadmin.games.fields.owner-etalon-result')</th>
+                        <th>@lang('quickadmin.games.fields.scenario')</th>
+                        <th>@lang('quickadmin.games.fields.game-results')</th>
+                        <th>&nbsp;</th>
+        </tr>
+    </thead>
+
+    <tbody>
+        @if (count($games) > 0)
+            @foreach ($games as $game)
+                <tr data-entry-id="{{ $game->id }}">
+                    <td>{{ $game->name }}</td>
+                                <td>{{ $game->owner->nickname or '' }}</td>
+                                <td>
+                                    @foreach ($game->players as $singlePlayers)
+                                        <span class="label label-info label-many">{{ $singlePlayers->nickname }}</span>
+                                    @endforeach
+                                </td>
+                                <td>{{ Form::checkbox("is_active", 1, $game->is_active == 1, ["disabled"]) }}</td>
+                                <td>{{ $game->owner_etalon_result->is_owner_etalon or '' }}</td>
+                                <td>{{ $game->scenario->name or '' }}</td>
+                                <td>
+                                    @foreach ($game->game_results as $singleGameResults)
+                                        <span class="label label-info label-many">{{ $singleGameResults->is_owner_etalon }}</span>
+                                    @endforeach
+                                </td>
+                                <td>
+                                    @can('game_view')
+                                    <a href="{{ route('games.show',[$game->id]) }}" class="btn btn-xs btn-primary">@lang('quickadmin.view')</a>
+                                    @endcan
+                                    @can('game_edit')
+                                    <a href="{{ route('games.edit',[$game->id]) }}" class="btn btn-xs btn-info">@lang('quickadmin.edit')</a>
+                                    @endcan
+                                    @can('game_delete')
+                                    {!! Form::open(array(
+                                        'style' => 'display: inline-block;',
+                                        'method' => 'DELETE',
+                                        'onsubmit' => "return confirm('".trans("quickadmin.are_you_sure")."');",
+                                        'route' => ['games.destroy', $game->id])) !!}
+                                    {!! Form::submit(trans('quickadmin.delete'), array('class' => 'btn btn-xs btn-danger')) !!}
+                                    {!! Form::close() !!}
+                                    @endcan
+                                </td>
+                </tr>
+            @endforeach
+        @else
+            <tr>
+                <td colspan="9">@lang('quickadmin.no_entries_in_table')</td>
+            </tr>
+        @endif
+    </tbody>
+</table>
+</div>
+</div>
 
             <p>&nbsp;</p>
 

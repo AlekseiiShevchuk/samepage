@@ -115,6 +115,15 @@
             </li>
             @endcan
             
+            @can('game_result_access')
+            <li class="{{ $request->segment(1) == 'game_results' ? 'active' : '' }}">
+                <a href="{{ route('game_results.index') }}">
+                    <i class="fa fa-gears"></i>
+                    <span class="title">@lang('quickadmin.game-results.title')</span>
+                </a>
+            </li>
+            @endcan
+            
 
             <li>
                 <a href="#logout" onclick="$('#logout').submit();">

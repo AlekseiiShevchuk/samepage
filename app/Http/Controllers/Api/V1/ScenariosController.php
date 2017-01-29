@@ -17,22 +17,24 @@ class ScenariosController extends Controller
 
     public function show($id)
     {
-        return Scenario::findOrFail($id);
+        return Scenario::findOrFail($id)->load(['background','images']);
     }
 
     public function update(UpdateScenariosRequest $request, $id)
     {
         $scenario = Scenario::findOrFail($id);
         $scenario->update($request->all());
+        $scenario->images()->sync(array_filter((array)$request->input('images')));
 
-        return $scenario;
+        return $scenario->load(['background','images']);
     }
 
     public function store(StoreScenariosRequest $request)
     {
         $scenario = Scenario::create($request->all());
+        $scenario->images()->sync(array_filter((array)$request->input('images')));
 
-        return $scenario;
+        return $scenario->load(['background','images']);
     }
 
     public function destroy($id)

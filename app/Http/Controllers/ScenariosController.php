@@ -116,6 +116,7 @@ class ScenariosController extends Controller
         $relations = [
             'backgrounds' => \App\Background::get()->pluck('name', 'id')->prepend('Please select', ''),
             'images' => \App\Image::get()->pluck('name', 'id'),
+            'games' => \App\Game::where('scenario_id', $id)->get(),
         ];
 
         $scenario = Scenario::findOrFail($id);

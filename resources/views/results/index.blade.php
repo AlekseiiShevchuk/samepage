@@ -25,9 +25,6 @@
                         <th>@lang('quickadmin.results.fields.y-coordinate')</th>
                         <th>@lang('quickadmin.results.fields.rotary-angle')</th>
                         <th>@lang('quickadmin.results.fields.for-image')</th>
-                        <th>@lang('quickadmin.results.fields.by-player')</th>
-                        <th>@lang('quickadmin.results.fields.for-game')</th>
-                        <th>@lang('quickadmin.results.fields.owner-base-result')</th>
                         <th>&nbsp;</th>
                     </tr>
                 </thead>
@@ -44,9 +41,6 @@
                                 <td>{{ $result->y_coordinate }}</td>
                                 <td>{{ $result->rotary_angle }}</td>
                                 <td>{{ $result->for_image->name or '' }}</td>
-                                <td>{{ $result->by_player->nickname or '' }}</td>
-                                <td>{{ $result->for_game->name or '' }}</td>
-                                <td>{{ Form::checkbox("owner_base_result", 1, $result->owner_base_result == 1, ["disabled"]) }}</td>
                                 <td>
                                     @can('result_view')
                                     <a href="{{ route('results.show',[$result->id]) }}" class="btn btn-xs btn-primary">@lang('quickadmin.view')</a>
@@ -68,7 +62,7 @@
                         @endforeach
                     @else
                         <tr>
-                            <td colspan="9">@lang('quickadmin.no_entries_in_table')</td>
+                            <td colspan="6">@lang('quickadmin.no_entries_in_table')</td>
                         </tr>
                     @endif
                 </tbody>

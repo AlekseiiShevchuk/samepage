@@ -58,43 +58,6 @@
                     @endif
                 </div>
             </div>
-            <div class="row">
-                <div class="col-xs-12 form-group">
-                    {!! Form::label('by_player_id', 'By player*', ['class' => 'control-label']) !!}
-                    {!! Form::select('by_player_id', $by_players, old('by_player_id'), ['class' => 'form-control select2']) !!}
-                    <p class="help-block"></p>
-                    @if($errors->has('by_player_id'))
-                        <p class="help-block">
-                            {{ $errors->first('by_player_id') }}
-                        </p>
-                    @endif
-                </div>
-            </div>
-            <div class="row">
-                <div class="col-xs-12 form-group">
-                    {!! Form::label('for_game_id', 'For game*', ['class' => 'control-label']) !!}
-                    {!! Form::select('for_game_id', $for_games, old('for_game_id'), ['class' => 'form-control select2']) !!}
-                    <p class="help-block"></p>
-                    @if($errors->has('for_game_id'))
-                        <p class="help-block">
-                            {{ $errors->first('for_game_id') }}
-                        </p>
-                    @endif
-                </div>
-            </div>
-            <div class="row">
-                <div class="col-xs-12 form-group">
-                    {!! Form::label('owner_base_result', 'Owner base result*', ['class' => 'control-label']) !!}
-                    {!! Form::hidden('owner_base_result', 0) !!}
-                    {!! Form::checkbox('owner_base_result', 1, false) !!}
-                    <p class="help-block"></p>
-                    @if($errors->has('owner_base_result'))
-                        <p class="help-block">
-                            {{ $errors->first('owner_base_result') }}
-                        </p>
-                    @endif
-                </div>
-            </div>
             
         </div>
     </div>

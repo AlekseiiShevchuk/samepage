@@ -25,7 +25,8 @@
                         <th>@lang('quickadmin.games.fields.owner')</th>
                         <th>@lang('quickadmin.games.fields.players')</th>
                         <th>@lang('quickadmin.games.fields.is-active')</th>
-                        <th>@lang('quickadmin.games.fields.results')</th>
+                        <th>@lang('quickadmin.games.fields.owner-etalon-result')</th>
+                        <th>@lang('quickadmin.games.fields.scenario')</th>
                         <th>&nbsp;</th>
                     </tr>
                 </thead>
@@ -46,11 +47,8 @@
                                     @endforeach
                                 </td>
                                 <td>{{ Form::checkbox("is_active", 1, $game->is_active == 1, ["disabled"]) }}</td>
-                                <td>
-                                    @foreach ($game->results as $singleResults)
-                                        <span class="label label-info label-many">{{ $singleResults->x_coordinate }}</span>
-                                    @endforeach
-                                </td>
+                                <td>{{ $game->owner_etalon_result->is_owner_etalon or '' }}</td>
+                                <td>{{ $game->scenario->name or '' }}</td>
                                 <td>
                                     @can('game_view')
                                     <a href="{{ route('games.show',[$game->id]) }}" class="btn btn-xs btn-primary">@lang('quickadmin.view')</a>
@@ -72,7 +70,7 @@
                         @endforeach
                     @else
                         <tr>
-                            <td colspan="7">@lang('quickadmin.no_entries_in_table')</td>
+                            <td colspan="9">@lang('quickadmin.no_entries_in_table')</td>
                         </tr>
                     @endif
                 </tbody>

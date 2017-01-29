@@ -27,9 +27,6 @@ class StoreResultsRequest extends FormRequest
             'y_coordinate' => 'required',
             
             'for_image_id' => 'required',
-            'by_player_id' => 'required',
-            'for_game_id' => 'required',
-            'owner_base_result' => 'required',
         ];
     }
 }

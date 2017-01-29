@@ -17,6 +17,6 @@ class Image extends Model
     use SoftDeletes;
     
     protected $fillable = ['name', 'description', 'image'];
-    
-    
+
+    protected $hidden = ['deleted_at','updated_at','created_at','pivot'];
 }

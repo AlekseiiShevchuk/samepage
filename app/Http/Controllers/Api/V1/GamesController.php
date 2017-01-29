@@ -3,7 +3,7 @@
 namespace App\Http\Controllers\Api\V1;
 
 use App\Game;
-use Illuminate\Http\Request;
+use App\GameResult;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\StoreGamesRequest;
 use App\Http\Requests\UpdateGamesRequest;
@@ -17,7 +17,14 @@ class GamesController extends Controller
 
     public function show($id)
     {
-        return Game::findOrFail($id);
+        return Game::findOrFail($id)->load([
+            'scenario',
+            'scenario.images',
+            'scenario.background',
+            'owner',
+            'owner_etalon_result',
+            'owner_etalon_result.results'
+        ]);
     }
 
     public function update(UpdateGamesRequest $request, $id)
@@ -35,10 +42,15 @@ class GamesController extends Controller
         return $game;
     }
 
-    public function destroy($id)
+//    public function destroy($id)
+//    {
+//        $game = Game::findOrFail($id);
+//        $game->delete();
+//        return '';
+//    }
+
+    public function getAllResultsForTheGame($id)
     {
-        $game = Game::findOrFail($id);
-        $game->delete();
-        return '';
+        return GameResult::where('for_game_id', $id)->orderBy('created_at','DESC')->with(['by_player','results'])->paginate();
     }
 }

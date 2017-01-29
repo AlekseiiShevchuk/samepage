@@ -16,6 +16,7 @@ class Player extends Model
     use SoftDeletes;
     
     protected $fillable = ['device_id', 'nickname'];
+    protected $hidden = ['deleted_at','pivot'];
     
     
     public function results()

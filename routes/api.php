@@ -9,7 +9,13 @@ Route::group(['prefix' => '/v1', 'namespace' => 'Api\V1', 'as' => 'api.'], funct
         Route::resource('scenarios', 'ScenariosController');
 
         Route::resource('players', 'PlayersController');
+        Route::get('players/{id}/game_results', 'PlayersController@showResults');
+
+        Route::resource('games', 'GamesController');
+        Route::get('games/{id}/game_results', 'GamesController@getAllResultsForTheGame');
 
         Route::resource('results', 'ResultsController');
+
+        Route::resource('game_results', 'GameResultsController');
 
 });

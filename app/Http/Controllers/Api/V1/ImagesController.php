@@ -15,7 +15,7 @@ class ImagesController extends Controller
 
     public function index()
     {
-        return Image::all();
+        return Image::paginate();
     }
 
     public function show($id)

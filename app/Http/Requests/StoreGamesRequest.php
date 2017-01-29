@@ -27,7 +27,8 @@ class StoreGamesRequest extends FormRequest
             'owner_id' => 'required',
             'players.*' => 'exists:players,id',
             'is_active' => 'required',
-            'results.*' => 'exists:results,id',
+            'scenario_id' => 'required',
+            'game_results.*' => 'exists:game_results,id',
         ];
     }
 }

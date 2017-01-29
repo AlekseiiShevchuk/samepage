@@ -3,7 +3,7 @@ namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class UpdateGamesRequest extends FormRequest
+class ApiStoreGameResultsRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -23,14 +23,10 @@ class UpdateGamesRequest extends FormRequest
     public function rules()
     {
         return [
-            
-            'name' => 'required|unique:games,name,'.$this->route('game'),
-            'owner_id' => 'required',
-            'players.*' => 'exists:players,id',
-            'is_active' => 'required',
-            
-            'scenario_id' => 'required',
-            'game_results.*' => 'exists:game_results,id',
+            'results' => 'required',
+            'is_owner_etalon' => 'required',
+            'for_game_id' => 'required|exists:games,id',
+            'by_player_id' => 'required|exists:players,id',
         ];
     }
 }

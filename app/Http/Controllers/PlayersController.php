@@ -114,11 +114,7 @@ class PlayersController extends Controller
         $relations = [
             'results' => \App\Result::get()->pluck('x_coordinate', 'id'),
             'games' => \App\Game::where('owner_id', $id)->get(),
-            'games' => \App\Game::whereHas('players',
-                    function ($query) use ($id) {
-                        $query->where('id', $id);
-                    })->get(),
-            'results' => \App\Result::where('by_player_id', $id)->get(),
+            'game_results' => \App\GameResult::where('by_player_id', $id)->get(),
         ];
 
         $player = Player::findOrFail($id);

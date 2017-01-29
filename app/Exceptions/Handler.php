@@ -55,7 +55,7 @@ class Handler extends ExceptionHandler
             return response('Method Not Allowed', 405);
         }
 
-        if ($e instanceof ValidationException) {
+        if ($e instanceof ValidationException && ($request->expectsJson() || $request->wantsJson() || $request->isJson())) {
             $validationErrors = $e->validator->errors();
             return response($validationErrors, 400);
         }
@@ -78,7 +78,7 @@ class Handler extends ExceptionHandler
             return response('Resource not found', 404);
         }
 
-        if ($e instanceof AuthorizationException) {
+        if ($e instanceof AuthorizationException && ($request->expectsJson() || $request->wantsJson() || $request->isJson())) {
             return response($e->getMessage(), 403);
         }
 

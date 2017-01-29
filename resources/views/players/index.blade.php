@@ -23,7 +23,6 @@
 
                         <th>@lang('quickadmin.players.fields.device-id')</th>
                         <th>@lang('quickadmin.players.fields.nickname')</th>
-                        <th>@lang('quickadmin.players.fields.results')</th>
                         <th>&nbsp;</th>
                     </tr>
                 </thead>
@@ -38,11 +37,6 @@
 
                                 <td>{{ $player->device_id }}</td>
                                 <td>{{ $player->nickname }}</td>
-                                <td>
-                                    @foreach ($player->results as $singleResults)
-                                        <span class="label label-info label-many">{{ $singleResults->x_coordinate }}</span>
-                                    @endforeach
-                                </td>
                                 <td>
                                     @can('player_view')
                                     <a href="{{ route('players.show',[$player->id]) }}" class="btn btn-xs btn-primary">@lang('quickadmin.view')</a>

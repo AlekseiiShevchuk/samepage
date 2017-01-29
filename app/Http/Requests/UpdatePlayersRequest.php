@@ -23,8 +23,6 @@ class UpdatePlayersRequest extends FormRequest
     public function rules()
     {
         return [
-            
-            //'device_id' => 'required|unique:players,device_id,'.$this->route('player'),
             'nickname' => 'required',
             'results.*' => 'exists:results,id',
         ];

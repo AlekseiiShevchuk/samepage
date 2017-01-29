@@ -17,6 +17,8 @@ class Background extends Model
     use SoftDeletes;
     
     protected $fillable = ['name', 'description', 'background_image'];
+
+    protected $hidden = ['deleted_at','updated_at','created_at','pivot'];
     
     
 }

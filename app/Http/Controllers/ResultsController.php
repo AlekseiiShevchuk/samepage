@@ -37,8 +37,6 @@ class ResultsController extends Controller
         }
         $relations = [
             'for_images' => \App\Image::get()->pluck('name', 'id')->prepend('Please select', ''),
-            'by_players' => \App\Player::get()->pluck('nickname', 'id')->prepend('Please select', ''),
-            'for_games' => \App\Game::get()->pluck('name', 'id')->prepend('Please select', ''),
         ];
 
         return view('results.create', $relations);
@@ -74,8 +72,6 @@ class ResultsController extends Controller
         }
         $relations = [
             'for_images' => \App\Image::get()->pluck('name', 'id')->prepend('Please select', ''),
-            'by_players' => \App\Player::get()->pluck('nickname', 'id')->prepend('Please select', ''),
-            'for_games' => \App\Game::get()->pluck('name', 'id')->prepend('Please select', ''),
         ];
 
         $result = Result::findOrFail($id);
@@ -115,13 +111,11 @@ class ResultsController extends Controller
         }
         $relations = [
             'for_images' => \App\Image::get()->pluck('name', 'id')->prepend('Please select', ''),
-            'by_players' => \App\Player::get()->pluck('nickname', 'id')->prepend('Please select', ''),
-            'for_games' => \App\Game::get()->pluck('name', 'id')->prepend('Please select', ''),
-            'players' => \App\Player::whereHas('results',
+            'game_results' => \App\GameResult::whereHas('results',
                     function ($query) use ($id) {
                         $query->where('id', $id);
                     })->get(),
-            'games' => \App\Game::whereHas('results',
+            'players' => \App\Player::whereHas('results',
                     function ($query) use ($id) {
                         $query->where('id', $id);
                     })->get(),

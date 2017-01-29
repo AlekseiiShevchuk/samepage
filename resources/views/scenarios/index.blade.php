@@ -39,10 +39,16 @@
 
                                 <td>{{ $scenario->name }}</td>
                                 <td>{{ $scenario->description }}</td>
-                                <td>{{ $scenario->background->name or '' }}</td>
+                                <td>
+                                    <a href="{{ asset('uploads/' . $scenario->background->background_image) }}" target="_blank">{{ $scenario->background->name }}<img src="{{ asset('uploads/thumb/' . $scenario->background->background_image) }}"/></a>
+                                    {{--{{ $scenario->background->name or '' }}--}}
+                                </td>
                                 <td>
                                     @foreach ($scenario->images as $singleImages)
-                                        <span class="label label-info label-many">{{ $singleImages->name }}</span>
+                                        @if($singleImages->image)
+                                            <a href="{{ asset('uploads/' . $singleImages->image) }}" target="_blank">{{ $singleImages->name }}<img src="{{ asset('uploads/thumb/' . $singleImages->image) }}"/></a>
+                                        @endif
+                                        {{--<span class="label label-info label-many">{{ $singleImages->name }}</span>--}}
                                     @endforeach
                                 </td>
                                 <td>

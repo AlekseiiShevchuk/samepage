@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Api\V1;
 
+use App\GameResult;
 use App\Player;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
@@ -17,13 +18,19 @@ class PlayersController extends Controller
 
     public function show($id)
     {
-        return Player::findOrFail($id);
+        return Player::where(['device_id'=>$id])->firstOrFail();
+    }
+
+    public function showResults($id)
+    {
+        $player = Player::where(['device_id'=>$id])->firstOrFail();
+        return GameResult::where(['by_player_id'=>$player->id])->orderBy('created_at','DESC')->with(['results','for_game'])->paginate();
     }
 
     public function update(UpdatePlayersRequest $request, $id)
     {
-        $player = Player::findOrFail($id);
-        $player->update($request->all());
+        $player = Player::where(['device_id'=>$id])->firstOrFail();
+        $player->nickname = ($request->get('nickname'));
 
         return $player;
     }

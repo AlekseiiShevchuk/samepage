@@ -15,7 +15,7 @@ class BackgroundsController extends Controller
 
     public function index()
     {
-        return Background::all();
+        return Background::paginate();
     }
 
     public function show($id)

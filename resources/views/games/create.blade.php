@@ -61,12 +61,12 @@
             </div>
             <div class="row">
                 <div class="col-xs-12 form-group">
-                    {!! Form::label('results', 'Results', ['class' => 'control-label']) !!}
-                    {!! Form::select('results[]', $results, old('results'), ['class' => 'form-control select2', 'multiple' => 'multiple']) !!}
+                    {!! Form::label('scenario_id', 'Scenario*', ['class' => 'control-label']) !!}
+                    {!! Form::select('scenario_id', $scenarios, old('scenario_id'), ['class' => 'form-control select2']) !!}
                     <p class="help-block"></p>
-                    @if($errors->has('results'))
+                    @if($errors->has('scenario_id'))
                         <p class="help-block">
-                            {{ $errors->first('results') }}
+                            {{ $errors->first('scenario_id') }}
                         </p>
                     @endif
                 </div>
