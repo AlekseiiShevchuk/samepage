@@ -44,7 +44,7 @@
                         </tr>
                             <th>background weight</th>
                             <td>
-                                <span  class="label label-info label-many">{{ $game_result->background_weight or '' }}</span>
+                                <span  class="label label-info label-many">{{ $game_result->background_width or '' }}</span>
                             </td>
                         </tr>
                     </table>

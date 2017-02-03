@@ -15,7 +15,7 @@ class AddFieldCanvasHeightAndWeight extends Migration
     {
         Schema::table('game_results', function (Blueprint $table) {
             $table->smallInteger('background_height')->nullable();
-            $table->smallInteger('background_weight')->nullable();
+            $table->smallInteger('background_width')->nullable();
         });
     }
 

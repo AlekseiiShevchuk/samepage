@@ -16,7 +16,7 @@ class GameResult extends Model
 {
     use SoftDeletes;
     
-    protected $fillable = ['is_owner_etalon', 'for_game_id', 'by_player_id'];
+    protected $fillable = ['is_owner_etalon', 'for_game_id', 'by_player_id','background_height','background_width'];
     protected $hidden = ['deleted_at'];
     
 
