@@ -8,6 +8,7 @@
 <body class="page-header-fixed">
     <div class="page-header navbar navbar-fixed-top">
         @include('partials.header')
+        @include('partials.javascripts')
     </div>
 
     <div class="clearfix"></div>
@@ -61,6 +62,6 @@
         <button type="submit">Logout</button>
     {!! Form::close() !!}
 
-    @include('partials.javascripts')
+
 </body>
 </html>
