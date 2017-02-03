@@ -1,5 +1,4 @@
 @extends('layouts.app')
-
 @section('content')
     <h3 class="page-title">@lang('quickadmin.scenarios.title')</h3>
     
@@ -50,7 +49,7 @@
             <div class="row">
                 <div class="col-xs-12 form-group">
                     {!! Form::label('images', 'Images*', ['class' => 'control-label']) !!}
-                    {!! Form::select('images[]', $images, old('images') ? old('images') : $scenario->images->pluck('id')->toArray(), ['class' => 'form-control select2', 'multiple' => 'multiple']) !!}
+                    {!! Form::select('images[]', $images, old('images') ? old('images') : $scenario->images->pluck('id')->toArray(), ['class' => 'form-control select2', 'multiple' => 'multiple', 'id'=>'sortable']) !!}
                     <p class="help-block"></p>
                     @if($errors->has('images'))
                         <p class="help-block">

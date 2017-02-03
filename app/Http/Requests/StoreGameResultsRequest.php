@@ -28,6 +28,8 @@ class StoreGameResultsRequest extends FormRequest
             'is_owner_etalon' => 'required',
             'for_game_id' => 'required',
             'by_player_id' => 'required',
+            'background_height' => 'integer|min:0|max:8000',
+            'background_weight' => 'integer|min:0|max:8000',
         ];
     }
 }

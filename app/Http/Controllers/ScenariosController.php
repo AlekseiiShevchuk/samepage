@@ -83,6 +83,26 @@ class ScenariosController extends Controller
     }
 
     /**
+     * Show the form for image sorting.
+     *
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function sortImages($id)
+    {
+        if (! Gate::allows('scenario_edit')) {
+            return abort(401);
+        }
+        $scenario = Scenario::findOrFail($id);
+        $relations = [
+            'images' => $scenario->images,
+        ];
+
+
+        return view('scenarios.imageSort', compact('scenario') + $relations);
+    }
+
+    /**
      * Update Scenario in storage.
      *
      * @param  \App\Http\Requests\UpdateScenariosRequest  $request

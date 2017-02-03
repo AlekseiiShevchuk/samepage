@@ -36,6 +36,17 @@
                                 <a  class="label label-info label-many" href="{{route('players.show',$game_result->by_player->id)}}">{{ $game_result->by_player->nickname or '' }}</a>
                             </td>
                         </tr>
+                        <tr>
+                            <th>background height</th>
+                            <td>
+                                <span  class="label label-info label-many">{{ $game_result->background_height or '' }}</span>
+                            </td>
+                        </tr>
+                            <th>background weight</th>
+                            <td>
+                                <span  class="label label-info label-many">{{ $game_result->background_weight or '' }}</span>
+                            </td>
+                        </tr>
                     </table>
                 </div>
             </div>
