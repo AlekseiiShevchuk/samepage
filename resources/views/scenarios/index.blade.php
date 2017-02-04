@@ -40,7 +40,7 @@
                                 <td>{{ $scenario->name }}</td>
                                 <td>{{ $scenario->description }}</td>
                                 <td>
-                                    <a href="{{ asset('uploads/' . $scenario->background->background_image) }}" target="_blank">{{ $scenario->background->name }}<img src="{{ asset('uploads/thumb/' . $scenario->background->background_image) }}"/></a>
+                                    <a href="{{ asset('uploads/' . $scenario->background->background_image) }}" target="_blank"><img src="{{ asset('uploads/thumb/' . $scenario->background->background_image) }}"/></a>
                                     {{--{{ $scenario->background->name or '' }}--}}
                                 </td>
                                 <td id="sortable{{ $scenario->id }}">
