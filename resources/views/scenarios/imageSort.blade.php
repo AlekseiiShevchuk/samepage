@@ -15,7 +15,7 @@
                     @foreach($images as $image)
                         <li class="ui-state-big" id="{{$image->id}}"><span><img
                                         src="{{ asset('uploads/' . $image->image) }}"
-                                        style="width: 100px; height: auto">{{$image->id}}</span></li>
+                                        style="width: 100px; height: auto"></span></li>
                     @endforeach
                 </ul>
             </div>

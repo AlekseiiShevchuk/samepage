@@ -46,7 +46,7 @@
                                 <td id="sortable{{ $scenario->id }}">
                                     @foreach ($scenario->images()->orderBy('pivot_order_num')->get() as $singleImages)
                                         @if($singleImages->image)
-                                            <a id="{{$singleImages->id}}" href="{{ asset('uploads/' . $singleImages->image) }}" target="_blank">{{ $singleImages->name }}<img src="{{ asset('uploads/thumb/' . $singleImages->image) }}"/></a>
+                                            <a id="{{$singleImages->id}}" href="{{ asset('uploads/' . $singleImages->image) }}" target="_blank"><img src="{{ asset('uploads/thumb/' . $singleImages->image) }}"/></a>
                                         @endif
                                     @endforeach
                                         <script>
