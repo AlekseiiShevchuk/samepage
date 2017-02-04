@@ -1,6 +1,7 @@
 <?php
+Route::post('scenarios/{scenario}/sort-images','ScenariosController@saveImageSorting')->name('scenarios.saveImageSorting');
 
-Route::group(['prefix' => '/v1', 'namespace' => 'Api\V1', 'as' => 'api.'], function () {
+Route::group(['prefix' => 'api/v1', 'namespace' => 'Api\V1', 'as' => 'api.'], function () {
 
         Route::resource('backgrounds', 'BackgroundsController');
 

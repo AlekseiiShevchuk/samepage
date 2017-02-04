@@ -18,5 +18,5 @@ class Image extends Model
     
     protected $fillable = ['name', 'description', 'image'];
 
-    protected $hidden = ['deleted_at','updated_at','created_at','pivot'];
+    protected $hidden = ['deleted_at','updated_at','created_at'];
 }

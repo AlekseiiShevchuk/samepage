@@ -29,9 +29,11 @@ Route::group(['middleware' => 'auth'], function () {
     Route::post('backgrounds_mass_destroy', ['uses' => 'BackgroundsController@massDestroy', 'as' => 'backgrounds.mass_destroy']);
     Route::resource('images', 'ImagesController');
     Route::post('images_mass_destroy', ['uses' => 'ImagesController@massDestroy', 'as' => 'images.mass_destroy']);
+
     Route::resource('scenarios', 'ScenariosController');
     Route::post('scenarios_mass_destroy', ['uses' => 'ScenariosController@massDestroy', 'as' => 'scenarios.mass_destroy']);
     Route::get('scenarios/{id}/sort-images', ['uses' => 'ScenariosController@sortImages', 'as' => 'scenarios.sortImages']);
+
     Route::resource('players', 'PlayersController');
     Route::post('players_mass_destroy', ['uses' => 'PlayersController@massDestroy', 'as' => 'players.mass_destroy']);
     Route::resource('games', 'GamesController');

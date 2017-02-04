@@ -43,18 +43,33 @@
                                     <a href="{{ asset('uploads/' . $scenario->background->background_image) }}" target="_blank">{{ $scenario->background->name }}<img src="{{ asset('uploads/thumb/' . $scenario->background->background_image) }}"/></a>
                                     {{--{{ $scenario->background->name or '' }}--}}
                                 </td>
-                                <td>
-                                    @foreach ($scenario->images as $singleImages)
+                                <td id="sortable{{ $scenario->id }}">
+                                    @foreach ($scenario->images()->orderBy('pivot_order_num')->get() as $singleImages)
                                         @if($singleImages->image)
-                                            <a href="{{ asset('uploads/' . $singleImages->image) }}" target="_blank">{{ $singleImages->name }}<img src="{{ asset('uploads/thumb/' . $singleImages->image) }}"/></a>
+                                            <a id="{{$singleImages->id}}" href="{{ asset('uploads/' . $singleImages->image) }}" target="_blank">{{ $singleImages->name }}<img src="{{ asset('uploads/thumb/' . $singleImages->image) }}"/></a>
                                         @endif
-                                        {{--<span class="label label-info label-many">{{ $singleImages->name }}</span>--}}
                                     @endforeach
+                                        <script>
+                                            $(function () {
+                                                $('#sortable{{ $scenario->id }}').sortable({
+                                                    update: function (event, ui) {
+                                                        var postData = $(this).sortable('toArray');
+                                                        //console.log(postData);
+                                                        $.post('/scenarios/{{ $scenario->id }}/sort-images',{images: postData}, function (o) {
+                                                            console.log(o);
+                                                        }, 'json');
+                                                    }
+                                                });
+                                            });
+                                        </script>
                                 </td>
                                 <td>
                                     @can('scenario_view')
                                     <a href="{{ route('scenarios.show',[$scenario->id]) }}" class="btn btn-xs btn-primary">@lang('quickadmin.view')</a>
                                     @endcan
+
+                                    <a href="{{ route('scenarios.sortImages',[$scenario->id]) }}" class="btn btn-xs btn-primary">sort images</a>
+
                                     @can('scenario_edit')
                                     <a href="{{ route('scenarios.edit',[$scenario->id]) }}" class="btn btn-xs btn-info">@lang('quickadmin.edit')</a>
                                     @endcan

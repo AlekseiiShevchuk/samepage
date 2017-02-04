@@ -36,7 +36,10 @@ class Scenario extends Model
     
     public function images()
     {
-        return $this->belongsToMany(Image::class, 'image_scenario')->withTrashed();
+        return $this->belongsToMany(Image::class, 'image_scenario')
+            ->withTrashed()
+            ->withPivot(['order_num'])
+            ;
     }
     
 }

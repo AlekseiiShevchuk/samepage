@@ -2,11 +2,11 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\StoreScenariosRequest;
+use App\Http\Requests\UpdateScenariosRequest;
 use App\Scenario;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Gate;
-use App\Http\Requests\StoreScenariosRequest;
-use App\Http\Requests\UpdateScenariosRequest;
 
 class ScenariosController extends Controller
 {
@@ -17,7 +17,7 @@ class ScenariosController extends Controller
      */
     public function index()
     {
-        if (! Gate::allows('scenario_access')) {
+        if (!Gate::allows('scenario_access')) {
             return abort(401);
         }
         $scenarios = Scenario::all();
@@ -32,7 +32,7 @@ class ScenariosController extends Controller
      */
     public function create()
     {
-        if (! Gate::allows('scenario_create')) {
+        if (!Gate::allows('scenario_create')) {
             return abort(401);
         }
         $relations = [
@@ -46,12 +46,12 @@ class ScenariosController extends Controller
     /**
      * Store a newly created Scenario in storage.
      *
-     * @param  \App\Http\Requests\StoreScenariosRequest  $request
+     * @param  \App\Http\Requests\StoreScenariosRequest $request
      * @return \Illuminate\Http\Response
      */
     public function store(StoreScenariosRequest $request)
     {
-        if (! Gate::allows('scenario_create')) {
+        if (!Gate::allows('scenario_create')) {
             return abort(401);
         }
         $scenario = Scenario::create($request->all());
@@ -64,12 +64,12 @@ class ScenariosController extends Controller
     /**
      * Show the form for editing Scenario.
      *
-     * @param  int  $id
+     * @param  int $id
      * @return \Illuminate\Http\Response
      */
     public function edit($id)
     {
-        if (! Gate::allows('scenario_edit')) {
+        if (!Gate::allows('scenario_edit')) {
             return abort(401);
         }
         $relations = [
@@ -85,33 +85,46 @@ class ScenariosController extends Controller
     /**
      * Show the form for image sorting.
      *
-     * @param  int  $id
+     * @param  int $id
      * @return \Illuminate\Http\Response
      */
     public function sortImages($id)
     {
-        if (! Gate::allows('scenario_edit')) {
+        if (!Gate::allows('scenario_edit')) {
             return abort(401);
         }
         $scenario = Scenario::findOrFail($id);
         $relations = [
-            'images' => $scenario->images,
+            'images' => $scenario->images()->orderBy('pivot_order_num')->get(),
         ];
 
 
         return view('scenarios.imageSort', compact('scenario') + $relations);
     }
 
+    public function saveImageSorting(Request $request, Scenario $scenario)
+    {
+        $sortedArrayOfImageIds = $request->get('images');
+        foreach ($sortedArrayOfImageIds as $orderNum => $imageId) {
+            if (empty($imageId)){continue;}
+            $imageWithPivot = $scenario->images->find($imageId);
+            $imageWithPivot->pivot->order_num = $orderNum;
+            $imageWithPivot->pivot->save();
+        }
+
+        return $sortedArrayOfImageIds;
+    }
+
     /**
      * Update Scenario in storage.
      *
-     * @param  \App\Http\Requests\UpdateScenariosRequest  $request
-     * @param  int  $id
+     * @param  \App\Http\Requests\UpdateScenariosRequest $request
+     * @param  int $id
      * @return \Illuminate\Http\Response
      */
     public function update(UpdateScenariosRequest $request, $id)
     {
-        if (! Gate::allows('scenario_edit')) {
+        if (!Gate::allows('scenario_edit')) {
             return abort(401);
         }
         $scenario = Scenario::findOrFail($id);
@@ -125,12 +138,12 @@ class ScenariosController extends Controller
     /**
      * Display Scenario.
      *
-     * @param  int  $id
+     * @param  int $id
      * @return \Illuminate\Http\Response
      */
     public function show($id)
     {
-        if (! Gate::allows('scenario_view')) {
+        if (!Gate::allows('scenario_view')) {
             return abort(401);
         }
         $relations = [
@@ -148,12 +161,12 @@ class ScenariosController extends Controller
     /**
      * Remove Scenario from storage.
      *
-     * @param  int  $id
+     * @param  int $id
      * @return \Illuminate\Http\Response
      */
     public function destroy($id)
     {
-        if (! Gate::allows('scenario_delete')) {
+        if (!Gate::allows('scenario_delete')) {
             return abort(401);
         }
         $scenario = Scenario::findOrFail($id);
@@ -169,7 +182,7 @@ class ScenariosController extends Controller
      */
     public function massDestroy(Request $request)
     {
-        if (! Gate::allows('scenario_delete')) {
+        if (!Gate::allows('scenario_delete')) {
             return abort(401);
         }
         if ($request->input('ids')) {

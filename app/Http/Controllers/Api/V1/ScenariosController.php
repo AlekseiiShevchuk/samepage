@@ -17,7 +17,9 @@ class ScenariosController extends Controller
 
     public function show($id)
     {
-        return Scenario::findOrFail($id)->load(['background','images']);
+        return Scenario::findOrFail($id)->load(['background','images'=>function ($query) {
+            $query->orderBy('pivot_order_num','asc');
+        }]);
     }
 
     public function update(UpdateScenariosRequest $request, $id)
@@ -43,4 +45,5 @@ class ScenariosController extends Controller
         $scenario->delete();
         return '';
     }
+
 }
