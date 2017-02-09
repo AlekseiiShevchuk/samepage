@@ -2,7 +2,7 @@
 
 @section('content')
     <h3 class="page-title">@lang('quickadmin.scenarios.title')</h3>
-    {!! Form::open(['method' => 'POST', 'route' => ['scenarios.store']]) !!}
+    {!! Form::open(['method' => 'POST', 'route' => ['scenarios.store'], 'files' => true,]) !!}
 
     <div class="panel panel-default">
         <div class="panel-heading">
