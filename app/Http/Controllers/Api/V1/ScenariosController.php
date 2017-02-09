@@ -12,7 +12,7 @@ class ScenariosController extends Controller
 {
     public function index()
     {
-        return Scenario::all();
+        return Scenario::all()->load('background');
     }
 
     public function show($id)
