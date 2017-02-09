@@ -34,56 +34,18 @@
                     @endif
                 </div>
             </div>
-            {{----}}
-            <div class="panel panel-default">
-                <div class="panel-heading">
-                    Select background from list or upload New
-                </div>
-
-                <div class="panel-body">
-                    <div class="row">
-                        <div class="col-xs-12 form-group">
-                            {!! Form::label('background_id', 'Background*', ['class' => 'control-label']) !!}
-                            {!! Form::select('background_id', $backgrounds, old('background_id'), ['class' => 'form-control select2']) !!}
-                            <p class="help-block"></p>
-                            @if($errors->has('background_id'))
-                                <p class="help-block">
-                                    {{ $errors->first('background_id') }}
-                                </p>
-                            @endif
-                        </div>
-                    </div>
-                    <div class="row"></div>
-                    <div class="row">
-                        <div class="col-xs-12 form-group">
-                            {!! Form::label('background_description', 'Description for background image', ['class' => 'control-label']) !!}
-                            {!! Form::text('background_description', old('background_description'), ['class' => 'form-control', 'placeholder' => '']) !!}
-                            <p class="help-block"></p>
-                            @if($errors->has('description'))
-                                <p class="help-block">
-                                    {{ $errors->first('description') }}
-                                </p>
-                            @endif
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-xs-12 form-group">
-                            {!! Form::label('background_image', 'Background image*', ['class' => 'control-label']) !!}
-                            {!! Form::file('background_image', ['class' => 'form-control', 'style' => 'margin-top: 4px;']) !!}
-                            {!! Form::hidden('background_image_max_size', 8) !!}
-                            {!! Form::hidden('background_image_max_width', 4000) !!}
-                            {!! Form::hidden('background_image_max_height', 4000) !!}
-                            <p class="help-block"></p>
-                            @if($errors->has('background_image'))
-                                <p class="help-block">
-                                    {{ $errors->first('background_image') }}
-                                </p>
-                            @endif
-                        </div>
-                    </div>
+            <div class="row">
+                <div class="col-xs-12 form-group">
+                    {!! Form::label('background_id', 'Background*', ['class' => 'control-label']) !!}
+                    {!! Form::select('background_id', $backgrounds, old('background_id'), ['class' => 'form-control select2']) !!}
+                    <p class="help-block"></p>
+                    @if($errors->has('background_id'))
+                        <p class="help-block">
+                            {{ $errors->first('background_id') }}
+                        </p>
+                    @endif
                 </div>
             </div>
-            {{----}}
             <div class="row">
                 <div class="col-xs-12 form-group">
                     {!! Form::label('images', 'Images*', ['class' => 'control-label']) !!}
