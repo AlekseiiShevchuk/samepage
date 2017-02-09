@@ -50,11 +50,9 @@ class GamesController extends Controller
         $players = $game->players;
         foreach ($players as $player){
             $has_result = !!GameResult::where([
-                'by_player_id' => Auth::user()->id,
+                'by_player_id' => $player->id,
                 'for_game_id' => $game->id
-            ])->orderBy('created_at', 'DESC')->with([
-                'results'
-            ])->first();
+            ])->orderBy('created_at', 'DESC')->first();
             $player->has_result = $has_result;
         }
         return $players;
