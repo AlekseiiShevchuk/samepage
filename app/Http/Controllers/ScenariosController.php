@@ -57,13 +57,13 @@ class ScenariosController extends Controller
         if (!Gate::allows('scenario_create')) {
             return abort(401);
         }
-        if($request->has('background_image')){
+        if($request->hasFile('background_image')){
             $request = $this->saveFiles($request);
             $background = Background::create($request->all());
             $scenario = Scenario::create($request->all());
             $scenario->background_id = $background->id;
-            $scenario->save();
             $scenario->images()->sync(array_filter((array)$request->input('images')));
+            $scenario->save();
         }else{
         $scenario = Scenario::create($request->all());
         $scenario->images()->sync(array_filter((array)$request->input('images')));
