@@ -15,6 +15,7 @@ Route::group(['prefix' => 'api/v1', 'namespace' => 'Api\V1', 'as' => 'api.'], fu
         Route::put('profile', 'PlayersController@update');
         Route::get('profile/game_results', 'PlayersController@showResults');
         Route::get('profile/game_results/game/{id}', 'PlayersController@showResultsByGame');
+        Route::get('profile/{player}/game_results/game/{game}', 'PlayersController@showResultsByGameAndPlayer');
         Route::get('profile/owned_games', 'PlayersController@showOwnedGames');
 
         Route::resource('games', 'GamesController');

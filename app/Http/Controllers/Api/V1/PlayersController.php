@@ -40,6 +40,16 @@ class PlayersController extends Controller
         ])->first();
     }
 
+    public function showResultsByGameAndPlayer(Player $player, Game $game)
+    {
+        return GameResult::where([
+            'by_player_id' => $player->id,
+            'for_game_id' => $game->id
+        ])->orderBy('created_at', 'DESC')->with([
+            'results'
+        ])->first();
+    }
+
     public function showOwnedGames()
     {
         return Game::where(['owner_id' => Auth::user()->id])->orderBy('created_at',
