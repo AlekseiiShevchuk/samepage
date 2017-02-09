@@ -2,12 +2,13 @@
 
 namespace App\Http\Controllers;
 
-use App\Image;
-use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Gate;
+use App\Http\Controllers\Traits\FileUploadTrait;
 use App\Http\Requests\StoreImagesRequest;
 use App\Http\Requests\UpdateImagesRequest;
-use App\Http\Controllers\Traits\FileUploadTrait;
+use App\Image;
+use App\Scenario;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Gate;
 
 class ImagesController extends Controller
 {
@@ -20,7 +21,7 @@ class ImagesController extends Controller
      */
     public function index()
     {
-        if (! Gate::allows('image_access')) {
+        if (!Gate::allows('image_access')) {
             return abort(401);
         }
         $images = Image::all();
@@ -33,27 +34,38 @@ class ImagesController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create()
+    public function create(Request $request)
     {
-        if (! Gate::allows('image_create')) {
+        if (!Gate::allows('image_create')) {
             return abort(401);
         }
-        return view('images.create');
+        $forScenarioId = false;
+        if ($request->has('for_scenario')) {
+            $forScenarioId = (int)$request->get('for_scenario');
+        }
+        return view('images.create')->with('forScenarioId', $forScenarioId);
     }
 
     /**
      * Store a newly created Image in storage.
      *
-     * @param  \App\Http\Requests\StoreImagesRequest  $request
+     * @param  \App\Http\Requests\StoreImagesRequest $request
      * @return \Illuminate\Http\Response
      */
     public function store(StoreImagesRequest $request)
     {
-        if (! Gate::allows('image_create')) {
+        if (!Gate::allows('image_create')) {
             return abort(401);
         }
         $request = $this->saveFiles($request);
         $image = Image::create($request->all());
+
+        if ($request->has('for_scenario')) {
+            $id = (int)$request->get('for_scenario');
+            $scenario = Scenario::findOrFail($id);
+            $scenario->images()->syncWithoutDetaching([$image->id]);
+            return redirect()->route('scenarios.index');
+        }
 
         return redirect()->route('images.index');
     }
@@ -62,12 +74,12 @@ class ImagesController extends Controller
     /**
      * Show the form for editing Image.
      *
-     * @param  int  $id
+     * @param  int $id
      * @return \Illuminate\Http\Response
      */
     public function edit($id)
     {
-        if (! Gate::allows('image_edit')) {
+        if (!Gate::allows('image_edit')) {
             return abort(401);
         }
         $image = Image::findOrFail($id);
@@ -78,13 +90,13 @@ class ImagesController extends Controller
     /**
      * Update Image in storage.
      *
-     * @param  \App\Http\Requests\UpdateImagesRequest  $request
-     * @param  int  $id
+     * @param  \App\Http\Requests\UpdateImagesRequest $request
+     * @param  int $id
      * @return \Illuminate\Http\Response
      */
     public function update(UpdateImagesRequest $request, $id)
     {
-        if (! Gate::allows('image_edit')) {
+        if (!Gate::allows('image_edit')) {
             return abort(401);
         }
         $request = $this->saveFiles($request);
@@ -98,19 +110,19 @@ class ImagesController extends Controller
     /**
      * Display Image.
      *
-     * @param  int  $id
+     * @param  int $id
      * @return \Illuminate\Http\Response
      */
     public function show($id)
     {
-        if (! Gate::allows('image_view')) {
+        if (!Gate::allows('image_view')) {
             return abort(401);
         }
         $relations = [
             'scenarios' => \App\Scenario::whereHas('images',
-                    function ($query) use ($id) {
-                        $query->where('id', $id);
-                    })->get(),
+                function ($query) use ($id) {
+                    $query->where('id', $id);
+                })->get(),
             'results' => \App\Result::where('for_image_id', $id)->get(),
         ];
 
@@ -123,12 +135,12 @@ class ImagesController extends Controller
     /**
      * Remove Image from storage.
      *
-     * @param  int  $id
+     * @param  int $id
      * @return \Illuminate\Http\Response
      */
     public function destroy($id)
     {
-        if (! Gate::allows('image_delete')) {
+        if (!Gate::allows('image_delete')) {
             return abort(401);
         }
         $image = Image::findOrFail($id);
@@ -144,7 +156,7 @@ class ImagesController extends Controller
      */
     public function massDestroy(Request $request)
     {
-        if (! Gate::allows('image_delete')) {
+        if (!Gate::allows('image_delete')) {
             return abort(401);
         }
         if ($request->input('ids')) {

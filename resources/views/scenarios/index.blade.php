@@ -64,11 +64,12 @@
                                         </script>
                                 </td>
                                 <td>
+
+                                    <a href="{{ route('images.create') }}?for_scenario={{$scenario->id}}" class="btn btn-xs btn-primary">add image</a>
+                                    <a href="{{ route('scenarios.sortImages',[$scenario->id]) }}" class="btn btn-xs btn-primary">sort images</a>
                                     @can('scenario_view')
                                     <a href="{{ route('scenarios.show',[$scenario->id]) }}" class="btn btn-xs btn-primary">@lang('quickadmin.view')</a>
                                     @endcan
-
-                                    <a href="{{ route('scenarios.sortImages',[$scenario->id]) }}" class="btn btn-xs btn-primary">sort images</a>
 
                                     @can('scenario_edit')
                                     <a href="{{ route('scenarios.edit',[$scenario->id]) }}" class="btn btn-xs btn-info">@lang('quickadmin.edit')</a>

@@ -1,12 +1,18 @@
 @extends('layouts.app')
 
 @section('content')
-    <h3 class="page-title">@lang('quickadmin.images.title')</h3>
+    <h3 class="page-title">
+        @lang('quickadmin.images.title')
+        @if($forScenarioId)
+            (add image for scenario with id {{$forScenarioId}})
+        @endif
+    </h3>
     {!! Form::open(['method' => 'POST', 'route' => ['images.store'], 'files' => true,]) !!}
 
     <div class="panel panel-default">
         <div class="panel-heading">
             @lang('quickadmin.create')
+
         </div>
         
         <div class="panel-body">
@@ -52,7 +58,9 @@
             
         </div>
     </div>
-
+@if($forScenarioId)
+    {!! Form::hidden('for_scenario', $forScenarioId) !!}
+@endif
     {!! Form::submit(trans('quickadmin.save'), ['class' => 'btn btn-danger']) !!}
     {!! Form::close() !!}
 @stop
