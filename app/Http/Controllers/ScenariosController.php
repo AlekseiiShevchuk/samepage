@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Background;
+use App\Http\Controllers\Traits\FileUploadTrait;
 use App\Http\Requests\StoreScenariosRequest;
 use App\Http\Requests\UpdateScenariosRequest;
 use App\Scenario;
@@ -10,6 +12,7 @@ use Illuminate\Support\Facades\Gate;
 
 class ScenariosController extends Controller
 {
+    use FileUploadTrait;
     /**
      * Display a listing of Scenario.
      *
@@ -54,8 +57,17 @@ class ScenariosController extends Controller
         if (!Gate::allows('scenario_create')) {
             return abort(401);
         }
+        if($request->has('background_image')){
+            $request = $this->saveFiles($request);
+            $background = Background::create($request->all());
+            $scenario = Scenario::create($request->all());
+            $scenario->background_id = $background->id;
+            $scenario->save();
+            $scenario->images()->sync(array_filter((array)$request->input('images')));
+        }else{
         $scenario = Scenario::create($request->all());
         $scenario->images()->sync(array_filter((array)$request->input('images')));
+        }
 
         return redirect()->route('scenarios.index');
     }

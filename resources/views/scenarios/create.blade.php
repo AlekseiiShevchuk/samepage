@@ -36,7 +36,7 @@
             </div>
             <div class="row">
                 <div class="col-xs-12 form-group">
-                    {!! Form::label('background_id', 'Background*', ['class' => 'control-label']) !!}
+                    {!! Form::label('background_id', 'Select Background', ['class' => 'control-label']) !!}
                     {!! Form::select('background_id', $backgrounds, old('background_id'), ['class' => 'form-control select2']) !!}
                     <p class="help-block"></p>
                     @if($errors->has('background_id'))
@@ -44,6 +44,25 @@
                             {{ $errors->first('background_id') }}
                         </p>
                     @endif
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-xs-12 form-group">
+                    <div class="row">
+                        <div class="col-xs-12 form-group">
+                            {!! Form::label('background_image', 'OR Upload Background:', ['class' => 'control-label']) !!}
+                            {!! Form::file('background_image', ['class' => 'form-control', 'style' => 'margin-top: 4px;']) !!}
+                            {!! Form::hidden('background_image_max_size', 8) !!}
+                            {!! Form::hidden('background_image_max_width', 4000) !!}
+                            {!! Form::hidden('background_image_max_height', 4000) !!}
+                            <p class="help-block"></p>
+                            @if($errors->has('background_image'))
+                                <p class="help-block">
+                                    {{ $errors->first('background_image') }}
+                                </p>
+                            @endif
+                        </div>
+                    </div>
                 </div>
             </div>
             <div class="row">
