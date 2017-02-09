@@ -26,7 +26,6 @@ class ApiStoreGameResultsRequest extends FormRequest
             'results' => 'required',
             'is_owner_etalon' => 'required',
             'for_game_id' => 'required|exists:games,id',
-            'by_player_id' => 'required|exists:players,id',
         ];
     }
 }
