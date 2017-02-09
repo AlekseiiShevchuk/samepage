@@ -37,7 +37,7 @@ class PlayersController extends Controller
             'for_game_id' => $game->id
         ])->orderBy('created_at', 'DESC')->with([
             'results'
-        ])->paginate();
+        ])->first();
     }
 
     public function showOwnedGames()

@@ -44,6 +44,22 @@ class GamesController extends Controller
         ]);
     }
 
+    public function activity($id)
+    {
+        $game = Game::findOrFail($id);
+        $players = $game->players;
+        foreach ($players as $player){
+            $has_result = !!GameResult::where([
+                'by_player_id' => Auth::user()->id,
+                'for_game_id' => $game->id
+            ])->orderBy('created_at', 'DESC')->with([
+                'results'
+            ])->first();
+            $player->has_result = $has_result;
+        }
+        return $players;
+    }
+
     public function update(UpdateGamesRequest $request, $id)
     {
         $game = Game::findOrFail($id);
