@@ -7,6 +7,7 @@ use App\GameResult;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\ApiStoreGameResultsRequest;
 use App\Result;
+use Illuminate\Support\Facades\Auth;
 
 class GameResultsController extends Controller
 {
@@ -31,8 +32,9 @@ class GameResultsController extends Controller
     public function store(ApiStoreGameResultsRequest $request)
     {
         $game = Game::findOrFail($request->get('for_game_id'));
-        $game->players()->syncWithoutDetaching([$request->get('by_player_id')]);
         $game_result = GameResult::create($request->all());
+        $game_result->by_player_id = Auth::user()->id;
+        $game_result->save();
         $results_ids_array = [];
         foreach ((array)$request->input('results') as $inputResult) {
             $result = Result::create($inputResult);

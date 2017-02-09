@@ -7,6 +7,7 @@ use App\GameResult;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\StoreGamesRequest;
 use App\Http\Requests\UpdateGamesRequest;
+use Illuminate\Support\Facades\Auth;
 
 class GamesController extends Controller
 {
@@ -23,7 +24,23 @@ class GamesController extends Controller
             'scenario.background',
             'owner',
             'owner_etalon_result',
-            'owner_etalon_result.results'
+            'owner_etalon_result.results',
+            'players',
+        ]);
+    }
+
+    public function join($id)
+    {
+        $game = Game::findOrFail($id);
+        $game->players()->syncWithoutDetaching([Auth::user()->id]);
+        return $game->load([
+            'scenario',
+            'scenario.images',
+            'scenario.background',
+            'owner',
+            'owner_etalon_result',
+            'owner_etalon_result.results',
+            'players',
         ]);
     }
 
@@ -37,20 +54,17 @@ class GamesController extends Controller
 
     public function store(StoreGamesRequest $request)
     {
-        $game = Game::create($request->all());
-
+        $game = Game::create($request->only(['name', 'is_active', 'scenario_id']));
+        $game->owner_id = Auth::user()->id;
+        $game->save();
         return $game;
     }
 
-//    public function destroy($id)
-//    {
-//        $game = Game::findOrFail($id);
-//        $game->delete();
-//        return '';
-//    }
-
     public function getAllResultsForTheGame($id)
     {
-        return GameResult::where('for_game_id', $id)->orderBy('created_at','DESC')->with(['by_player','results'])->paginate();
+        return GameResult::where('for_game_id', $id)->orderBy('created_at', 'DESC')->with([
+            'by_player',
+            'results'
+        ])->paginate();
     }
 }

@@ -9,12 +9,17 @@ Route::group(['prefix' => 'api/v1', 'namespace' => 'Api\V1', 'as' => 'api.'], fu
 
         Route::resource('scenarios', 'ScenariosController');
 
-        Route::resource('players', 'PlayersController');
-        Route::get('players/{id}/game_results', 'PlayersController@showResults');
-        Route::get('players/{id}/owned_games', 'PlayersController@showOwnedGames');
+        //Route::resource('players', 'PlayersController');
+
+        Route::get('profile', 'PlayersController@show');
+        Route::put('profile', 'PlayersController@update');
+        Route::get('profile/game_results', 'PlayersController@showResults');
+        Route::get('profile/game_results/game/{id}', 'PlayersController@showResultsByGame');
+        Route::get('profile/owned_games', 'PlayersController@showOwnedGames');
 
         Route::resource('games', 'GamesController');
         Route::get('games/{id}/game_results', 'GamesController@getAllResultsForTheGame');
+        Route::get('games/{id}/join', 'GamesController@join');
 
         Route::resource('results', 'ResultsController');
 

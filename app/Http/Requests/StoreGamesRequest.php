@@ -24,7 +24,6 @@ class StoreGamesRequest extends FormRequest
     {
         return [
             'name' => 'required|unique:games,name',
-            'owner_id' => 'required',
             'players.*' => 'exists:players,id',
             'is_active' => 'required',
             'scenario_id' => 'required',

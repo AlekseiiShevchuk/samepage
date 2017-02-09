@@ -4,11 +4,10 @@ namespace App\Http\Controllers\Api\V1;
 
 use App\Game;
 use App\GameResult;
-use App\Player;
-use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
-use App\Http\Requests\StorePlayersRequest;
 use App\Http\Requests\UpdatePlayersRequest;
+use App\Player;
+use Illuminate\Support\Facades\Auth;
 
 class PlayersController extends Controller
 {
@@ -17,42 +16,40 @@ class PlayersController extends Controller
         return Player::all();
     }
 
-    public function show($id)
+    public function show()
     {
-        return Player::where(['device_id'=>$id])->firstOrFail();
+        return Auth::user();
     }
 
-    public function showResults($id)
+    public function showResults()
     {
-        $player = Player::where(['device_id'=>$id])->firstOrFail();
-        return GameResult::where(['by_player_id'=>$player->id])->orderBy('created_at','DESC')->with(['results','for_game'])->paginate();
+        return GameResult::where(['by_player_id' => Auth::user()->id])->orderBy('created_at', 'DESC')->with([
+            'results',
+            'for_game'
+        ])->paginate();
     }
 
-    public function showOwnedGames($id)
+    public function showResultsByGame($id)
     {
-        $player = Player::where(['device_id'=>$id])->firstOrFail();
-        return Game::where(['owner_id'=>$player->id])->orderBy('created_at','DESC')->with(['owner_etalon_result','scenario'])->paginate();
+        $game = Game::findOrFail($id);
+        return GameResult::where([
+            'by_player_id' => Auth::user()->id,
+            'for_game_id' => $game->id
+        ])->orderBy('created_at', 'DESC')->with([
+            'results'
+        ])->paginate();
     }
 
-    public function update(UpdatePlayersRequest $request, $id)
+    public function showOwnedGames()
     {
-        $player = Player::where(['device_id'=>$id])->firstOrFail();
-        $player->nickname = ($request->get('nickname'));
-
-        return $player;
+        return Game::where(['owner_id' => Auth::user()->id])->orderBy('created_at',
+            'DESC')->with(['owner_etalon_result', 'scenario'])->paginate();
     }
 
-    public function store(StorePlayersRequest $request)
+    public function update(UpdatePlayersRequest $request)
     {
-        $player = Player::create($request->all());
+        Auth::user()->nickname = ($request->get('nickname'));
 
-        return $player;
-    }
-
-    public function destroy($id)
-    {
-        $player = Player::findOrFail($id);
-        $player->delete();
-        return '';
+        return Auth::user();
     }
 }

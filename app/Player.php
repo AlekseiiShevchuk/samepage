@@ -2,7 +2,7 @@
 namespace App;
 
 use Illuminate\Database\Eloquent\SoftDeletes;
-use Illuminate\Database\Eloquent\Model;
+use Illuminate\Foundation\Auth\User as Authenticatable;
 
 /**
  * Class Player
@@ -11,7 +11,7 @@ use Illuminate\Database\Eloquent\Model;
  * @property string $device_id
  * @property string $nickname
 */
-class Player extends Model
+class Player extends Authenticatable
 {
     use SoftDeletes;
     
