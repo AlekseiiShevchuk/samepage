@@ -22,8 +22,11 @@ class GameResultHelper
         if ($numberOfImagesInCalculatedResult < 1) {
             throw new \BadMethodCallException('number of images in game result < 1');
         }
-
-        $maxPointsPerImage = 100 / $numberOfImagesInCalculatedResult;
+        $maxCountOfImages = $numberOfImagesInCalculatedResult;
+        if($etalonNumberOfImages > $numberOfImagesInCalculatedResult){
+            $maxCountOfImages = $etalonNumberOfImages;
+        }
+        $maxPointsPerImage = 100 / $maxCountOfImages;
         $xScale = $game->owner_etalon_result->background_width / $gameResult->background_width;
         $yScale = $game->owner_etalon_result->background_height / $gameResult->background_height;
         $calculatingResults = $calculatingResults->toArray();
