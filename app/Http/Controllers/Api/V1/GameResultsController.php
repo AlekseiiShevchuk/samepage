@@ -50,10 +50,6 @@ class GameResultsController extends Controller
         return $game_result->load(['results', 'results.for_image']);
     }
 
-//    public function destroy($id)
-//    {
-//        $game_result = GameResult::findOrFail($id);
-//        $game_result->delete();
-//        return '';
-//    }
+
+
 }
