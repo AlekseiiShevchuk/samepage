@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Api\V1;
 
 use App\Game;
 use App\GameResult;
+use App\GameResultHelper;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\ApiStoreGameResultsRequest;
 use App\Result;
@@ -47,9 +48,15 @@ class GameResultsController extends Controller
             $game->save();
         }
 
+        if ($request->get('is_owner_etalon') == 0) {
+            $gameResultHelper = new GameResultHelper();
+            //refresh game result from db
+            $game_result = GameResult::find($game_result->id);
+            $game_result->result_rate = $gameResultHelper->calculateResultRate($game_result);
+            $game_result->save();
+        }
         return $game_result->load(['results', 'results.for_image']);
     }
-
 
 
 }
