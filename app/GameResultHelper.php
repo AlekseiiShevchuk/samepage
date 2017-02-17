@@ -7,6 +7,9 @@ class GameResultHelper
     {
         $game = Game::findOrFail($gameResult->for_game_id);
         $etalonResults = $game->owner_etalon_result->results;
+        if ($game->owner_etalon_result->background_width == 0 || $game->owner_etalon_result->background_height == 0) {
+            return null;
+        }
         $etalonNumberOfImages = $etalonResults->count();
         if ($etalonNumberOfImages < 1) {
             throw new \BadMethodCallException('etalon number of images < 1');

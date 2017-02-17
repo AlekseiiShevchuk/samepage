@@ -2,7 +2,6 @@
 
 namespace App\Console\Commands;
 
-use App\Game;
 use App\GameResult;
 use App\GameResultHelper;
 use Illuminate\Console\Command;
@@ -36,14 +35,15 @@ class forTests extends Command
     /**
      * Execute the console command.
      *
-     * @param GameResultHelper $ghgameResultHelper
+     * @param GameResultHelper $gameResultHelper
      * @return mixed
      */
-    public function handle(GameResultHelper $ghgameResultHelper)
+    public function handle(GameResultHelper $gameResultHelper)
     {
-        $gameResults = GameResult::all();
-        foreach ($gameResults as $gameResult){
-            $gameResult->result_rate = $ghgameResultHelper->calculateResultRate($gameResult);
+        $gameResults = GameResult::where('background_width', '>', 0)->where('background_height', '>', 0)->get();
+        foreach ($gameResults as $gameResult) {
+            $gameResult->result_rate = $gameResultHelper->calculateResultRate($gameResult);
+            $gameResult->save();
         }
     }
 }
