@@ -55,6 +55,8 @@ class GameResultsController extends Controller
             $game_result->result_rate = $gameResultHelper->calculateResultRate($game_result);
             $game_result->save();
         }
+        //refresh game result from db
+        $game_result = GameResult::find($game_result->id);
         return $game_result->load(['results', 'results.for_image']);
     }
 
