@@ -6,9 +6,12 @@ class GameResultHelper
     public function calculateResultRate(GameResult $gameResult)
     {
         $game = Game::findOrFail($gameResult->for_game_id);
+        if(! $game->owner_etalon_result instanceof GameResult){
+            return -1;
+        }
         $etalonResults = $game->owner_etalon_result->results;
         if ($game->owner_etalon_result->background_width < 1 || $game->owner_etalon_result->background_height < 1) {
-            return null;
+            return -1;
         }
         $etalonNumberOfImages = $etalonResults->count();
         if ($etalonNumberOfImages < 1) {
