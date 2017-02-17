@@ -49,7 +49,7 @@ class GameResultHelper
             }
             // clean array from user results
             foreach ($calculatingResults as $key => $calculatingResult) {
-                if ($usedCalculatedResults[$etalonResult->id] == $calculatingResult['id']) {
+                if (isset($usedCalculatedResults[$etalonResult->id]) && $usedCalculatedResults[$etalonResult->id] == $calculatingResult['id']) {
                     unset($calculatingResults[$key]);
                 }
             }
