@@ -48,12 +48,18 @@ class GamesController extends Controller
     {
         $game = Game::findOrFail($id);
         $players = $game->players;
-        foreach ($players as $player){
-            $has_result = !!GameResult::where([
+        foreach ($players as $player) {
+            $game_result = GameResult::where([
                 'by_player_id' => $player->id,
                 'for_game_id' => $game->id
             ])->orderBy('created_at', 'DESC')->first();
-            $player->has_result = $has_result;
+            if ($game_result instanceof GameResult) {
+                $player->has_result = true;
+                $player->result_rate = $game_result->result_rate;
+            } else {
+                $player->has_result = false;
+                $player->result_rate = null;
+            }
         }
         return $players;
     }
