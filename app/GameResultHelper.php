@@ -6,7 +6,7 @@ class GameResultHelper
     public function calculateResultRate(GameResult $gameResult)
     {
         $game = Game::findOrFail($gameResult->for_game_id);
-        if(! $game->owner_etalon_result instanceof GameResult){
+        if (!$game->owner_etalon_result instanceof GameResult) {
             return -1;
         }
         $etalonResults = $game->owner_etalon_result->results;
@@ -28,20 +28,27 @@ class GameResultHelper
         $yScale = $game->owner_etalon_result->background_height / $gameResult->background_height;
         $calculatingResults = $calculatingResults->toArray();
         $resultRateForEachImage = [];
+        $usedCalculatedResults = [];
         foreach ($etalonResults as $etalonResult) {
-            foreach ($calculatingResults as $key => $calculatingResult) {
+            foreach ($calculatingResults as $calculatingResult) {
                 if ($etalonResult->for_image_id != $calculatingResult['for_image_id']) {
                     continue;
                 }
                 $xCoordinateRate = $maxPointsPerImage * (1 - (abs(($etalonResult->x_coordinate - ($calculatingResult['x_coordinate'] * $xScale))) / $game->owner_etalon_result->background_width));
                 $yCoordinateRate = $maxPointsPerImage * (1 - (abs(($etalonResult->y_coordinate - ($calculatingResult['y_coordinate'] * $yScale))) / $game->owner_etalon_result->background_height));
                 $totalImageRate = ($xCoordinateRate + $yCoordinateRate) / 2;
-                if (isset($resultRateForEachImage[$calculatingResult['id']]) && $resultRateForEachImage[$calculatingResult['id']] > $totalImageRate) {
+                if (isset($resultRateForEachImage[$etalonResult->id]) && $resultRateForEachImage[$etalonResult->id] > $totalImageRate) {
                     continue;
                 } else {
-                    $resultRateForEachImage[$calculatingResult['id']] = $totalImageRate;
+                    $resultRateForEachImage[$etalonResult->id] = $totalImageRate;
+                    $usedCalculatedResults[$etalonResult->id] = $calculatingResult['id'];
                 }
-                unset($calculatingResults[$key]);
+            }
+            // clean array from user results
+            foreach ($calculatingResults as $key => $calculatingResult) {
+                if ($usedCalculatedResults[$etalonResult->id] == $calculatingResult['id']) {
+                    unset($calculatingResults[$key]);
+                }
             }
         }
         return array_sum($resultRateForEachImage);
