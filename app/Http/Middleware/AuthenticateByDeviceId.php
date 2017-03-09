@@ -3,7 +3,6 @@
 namespace App\Http\Middleware;
 
 use App\Player;
-use App\User;
 use Closure;
 use Illuminate\Support\Facades\Auth;
 use Symfony\Component\HttpKernel\Exception\BadRequestHttpException;
@@ -24,7 +23,7 @@ class AuthenticateByDeviceId
                 ['device_id' => $device_id, 'nickname' => 'not_filled']);
             $player = Player::findOrFail($player->id);
             Auth::login($player);
-        }else{
+        } else {
             throw new BadRequestHttpException('you should send "device-id" in your request headers');
         }
         return $next($request);

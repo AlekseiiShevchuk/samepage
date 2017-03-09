@@ -114,8 +114,9 @@ class ScenariosController extends Controller
         return view('scenarios.imageSort', compact('scenario') + $relations);
     }
 
-    public function saveImageSorting(Request $request, Scenario $scenario)
+    public function saveImageSorting(Request $request, $scenarioId)
     {
+        $scenario = Scenario::findOrFail($scenarioId);
         $sortedArrayOfImageIds = $request->get('images');
         foreach ($sortedArrayOfImageIds as $orderNum => $imageId) {
             if (empty($imageId)){continue;}
