@@ -40,13 +40,13 @@
                                 <td>{{ $scenario->name }}</td>
                                 <td>{{ $scenario->description }}</td>
                                 <td>
-                                    <a href="{{ asset('uploads/' . $scenario->background->background_image) }}" target="_blank"><img src="{{ asset('uploads/thumb/' . $scenario->background->background_image) }}"/></a>
+                                    <a href="{{route('backgrounds.edit', ['id' => $scenario->background->id])}}" target="_blank"><img src="{{ asset('uploads/thumb/' . $scenario->background->background_image) }}"/></a>
                                     {{--{{ $scenario->background->name or '' }}--}}
                                 </td>
                                 <td id="sortable{{ $scenario->id }}">
                                     @foreach ($scenario->images()->orderBy('pivot_order_num')->get() as $singleImages)
                                         @if($singleImages->image)
-                                            <a id="{{$singleImages->id}}" href="{{ asset('uploads/' . $singleImages->image) }}" target="_blank"><img src="{{ asset('uploads/thumb/' . $singleImages->image) }}"/></a>
+                                            <a id="{{$singleImages->id}}" href="{{route('images.edit', ['id' => $singleImages->id])}}" target="_blank"><img src="{{ asset('uploads/thumb/' . $singleImages->image) }}"/></a>
                                         @endif
                                     @endforeach
                                         <script>
