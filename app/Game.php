@@ -20,7 +20,7 @@ class Game extends Model
     const STARTED = 'started';
     use SoftDeletes;
 
-    protected $fillable = ['name', 'is_active', 'owner_id', 'owner_etalon_result_id', 'scenario_id'];
+    protected $fillable = ['name', 'is_active', 'owner_id', 'owner_etalon_result_id', 'scenario_id','time_limit'];
 
     protected $hidden = ['deleted_at'];
 

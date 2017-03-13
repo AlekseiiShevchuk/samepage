@@ -94,7 +94,7 @@ class GamesController extends Controller
 
     public function store(StoreGamesRequest $request)
     {
-        $game = Game::create($request->only(['name', 'is_active', 'scenario_id']));
+        $game = Game::create($request->only(['name', 'is_active', 'scenario_id','time_limit']));
         $game->owner_id = Auth::user()->id;
         $game->save();
         return $game;
