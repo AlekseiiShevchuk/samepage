@@ -8,6 +8,7 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\StoreGamesRequest;
 use App\Http\Requests\UpdateGamesRequest;
 use Illuminate\Support\Facades\Auth;
+use Symfony\Component\HttpKernel\Exception\BadRequestHttpException;
 
 class GamesController extends Controller
 {
@@ -32,6 +33,11 @@ class GamesController extends Controller
     public function join($id)
     {
         $game = Game::findOrFail($id);
+
+        if($game->status == Game::STARTED){
+            throw new BadRequestHttpException('This game is already started');
+        }
+
         $game->players()->syncWithoutDetaching([Auth::user()->id]);
         return $game->load([
             'scenario',
@@ -62,6 +68,20 @@ class GamesController extends Controller
             }
         }
         return $players;
+    }
+
+    public function start($id)
+    {
+        $game = Game::findOrFail($id);
+
+        if($game->status == Game::STARTED){
+            throw new BadRequestHttpException('This game is already started');
+        }
+
+        $game->status = Game::STARTED;
+        $game->save();
+
+        return response()->json('Game successfully started');
     }
 
     public function update(UpdateGamesRequest $request, $id)

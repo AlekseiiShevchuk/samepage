@@ -16,6 +16,8 @@ use Illuminate\Database\Eloquent\SoftDeletes;
  */
 class Game extends Model
 {
+    const CREATING = 'creating';
+    const STARTED = 'started';
     use SoftDeletes;
 
     protected $fillable = ['name', 'is_active', 'owner_id', 'owner_etalon_result_id', 'scenario_id'];

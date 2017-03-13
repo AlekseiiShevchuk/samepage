@@ -8,6 +8,7 @@ use Illuminate\Auth\AuthenticationException;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Foundation\Exceptions\Handler as ExceptionHandler;
 use Illuminate\Validation\ValidationException;
+use Symfony\Component\HttpKernel\Exception\BadRequestHttpException;
 use Symfony\Component\HttpKernel\Exception\MethodNotAllowedHttpException;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 use Symfony\Component\HttpKernel\Exception\ServiceUnavailableHttpException;
@@ -52,38 +53,42 @@ class Handler extends ExceptionHandler
     {
 
         if ($e instanceof MethodNotAllowedHttpException) {
-            return response('Method Not Allowed', 405);
+            return response()->json('Method Not Allowed', 405);
+        }
+
+        if ($e instanceof BadRequestHttpException) {
+            return response()->json($e->getMessage(), 400);
         }
 
         if ($e instanceof ValidationException && ($request->expectsJson() || $request->wantsJson() || $request->isJson())) {
             $validationErrors = $e->validator->errors();
-            return response($validationErrors, 400);
+            return response()->json($validationErrors, 400);
         }
 
         if ($e instanceof \PDOException) {
             if (strtolower(env('APP_ENV')) == 'local') {
-                return response($e->getMessage(), 500);
+                return response()->json($e->getMessage(), 500);
             } else {
-                return response('Internal Server Error', 500);
+                return response()->json('Internal Server Error', 500);
             }
         }
 
         if ($e instanceof ModelNotFoundException) {
             $modelPathAsArray = explode('\\', $e->getModel());
             $model = $modelPathAsArray[count($modelPathAsArray) - 1];
-            return response($model . ' not found', 404);
+            return response()->json($model . ' not found', 404);
         }
 
         if ($e instanceof NotFoundHttpException) {
-            return response('Resource not found', 404);
+            return response()->json('Resource not found', 404);
         }
 
         if ($e instanceof AuthorizationException && ($request->expectsJson() || $request->wantsJson() || $request->isJson())) {
-            return response($e->getMessage(), 403);
+            return response()->json($e->getMessage(), 403);
         }
 
         if ($e instanceof ServiceUnavailableHttpException) {
-            return response('Authentication Service is not available. Try later.', 503);
+            return response()->json('Authentication Service is not available. Try later.', 503);
         }
 
         return parent::render($request, $e);

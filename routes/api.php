@@ -21,6 +21,7 @@ Route::group(['prefix' => 'api/v1', 'namespace' => 'Api\V1', 'as' => 'api.'], fu
         Route::get('games/{id}/game_results', 'GamesController@getAllResultsForTheGame');
         Route::get('games/{id}/join', 'GamesController@join');
         Route::get('games/{id}/activity', 'GamesController@activity');
+        Route::get('games/{id}/start', 'GamesController@start');
 
         Route::resource('results', 'ResultsController');
 
