@@ -15,7 +15,7 @@ class Player extends Authenticatable
 {
     use SoftDeletes;
     
-    protected $fillable = ['device_id', 'nickname'];
+    protected $fillable = ['nickname','device_token'];
     protected $hidden = ['deleted_at','pivot'];
     
     

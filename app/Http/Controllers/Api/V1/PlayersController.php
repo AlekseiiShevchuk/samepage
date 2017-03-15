@@ -58,8 +58,7 @@ class PlayersController extends Controller
 
     public function update(UpdatePlayersRequest $request)
     {
-        Auth::user()->nickname = ($request->get('nickname'));
-        Auth::user()->save();
+        Auth::user()->update($request->all());
         return Auth::user();
     }
 }

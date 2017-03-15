@@ -7,6 +7,7 @@ use App\GameResult;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\StoreGamesRequest;
 use App\Http\Requests\UpdateGamesRequest;
+use App\Services\FCMService;
 use Illuminate\Support\Facades\Auth;
 use Symfony\Component\HttpKernel\Exception\BadRequestHttpException;
 
@@ -39,6 +40,9 @@ class GamesController extends Controller
         }
 
         $game->players()->syncWithoutDetaching([Auth::user()->id]);
+
+        (new FCMService())->sendNotificationToGameOwnerAfterPlayerJoinTheGame($game,Auth::user());
+
         return $game->load([
             'scenario',
             'scenario.images',
@@ -80,6 +84,8 @@ class GamesController extends Controller
 
         $game->status = Game::STARTED;
         $game->save();
+
+        (new FCMService())->sendNotificationToPlayersAboutGameStarted($game);
 
         return response()->json('Game successfully started');
     }

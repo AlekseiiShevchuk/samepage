@@ -19,8 +19,10 @@ class AuthenticateByDeviceId
     public function handle($request, Closure $next)
     {
         if ($device_id = $request->header('device_id')) {
+            Player::unguard();
             $player = Player::firstOrCreate(['device_id' => $device_id],
                 ['device_id' => $device_id, 'nickname' => 'not_filled']);
+            Player::reguard();
             $player = Player::findOrFail($player->id);
             Auth::login($player);
         } else {

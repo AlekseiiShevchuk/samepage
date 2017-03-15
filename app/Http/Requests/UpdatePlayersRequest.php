@@ -23,8 +23,6 @@ class UpdatePlayersRequest extends FormRequest
     public function rules()
     {
         return [
-            'nickname' => 'required',
-            'results.*' => 'exists:results,id',
         ];
     }
 }

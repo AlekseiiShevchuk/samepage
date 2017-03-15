@@ -10,9 +10,11 @@ use App\Scenario;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Gate;
 
+
 class ScenariosController extends Controller
 {
     use FileUploadTrait;
+
     /**
      * Display a listing of Scenario.
      *
@@ -57,16 +59,16 @@ class ScenariosController extends Controller
         if (!Gate::allows('scenario_create')) {
             return abort(401);
         }
-        if($request->hasFile('background_image')){
+        if ($request->hasFile('background_image')) {
             $request = $this->saveFiles($request);
             $background = Background::create($request->all());
             $scenario = Scenario::create($request->all());
             $scenario->background_id = $background->id;
             $scenario->images()->sync(array_filter((array)$request->input('images')));
             $scenario->save();
-        }else{
-        $scenario = Scenario::create($request->all());
-        $scenario->images()->sync(array_filter((array)$request->input('images')));
+        } else {
+            $scenario = Scenario::create($request->all());
+            $scenario->images()->sync(array_filter((array)$request->input('images')));
         }
 
         return redirect()->route('scenarios.index');
@@ -119,7 +121,9 @@ class ScenariosController extends Controller
         $scenario = Scenario::findOrFail($scenarioId);
         $sortedArrayOfImageIds = $request->get('images');
         foreach ($sortedArrayOfImageIds as $orderNum => $imageId) {
-            if (empty($imageId)){continue;}
+            if (empty($imageId)) {
+                continue;
+            }
             $imageWithPivot = $scenario->images->find($imageId);
             $imageWithPivot->pivot->order_num = $orderNum;
             $imageWithPivot->pivot->save();
