@@ -49,7 +49,7 @@ class FCMService
     {
         $tokens = [];
         foreach ($game->players as $player) {
-            if ($player->device_token == null || $player->device_token == '') {
+            if ($player->device_token == null || $player->device_token == '' || $player->id == $game->owner->id) {
                 continue;
             }
             $tokens[] = $player->device_token;
