@@ -51,11 +51,14 @@
                                                 <img src="{{ asset('uploads/thumb/' . $singleImages->image) }}"/>
                                             </a>
                                             {!! Form::open(array(
-                                                'style' => 'display: inline;',
+                                                'style' => 'display: inline; padding-top:-15px',
                                                 'method' => 'DELETE',
                                                 'onsubmit' => "return confirm('".trans("quickadmin.are_you_sure")."');",
                                                 'route' => ['images.destroy', $singleImages->id])) !!}
-                                            {!! Form::submit('X', array('class' => 'btn btn-xs btn-circle btn-danger')) !!}
+                                            {!! Form::submit('X', array(
+                                            'class' => 'btn btn-xs btn-circle btn-danger',
+                                            'style' => 'margin-top:-15px'
+                                            )) !!}
                                             {!! Form::close() !!}
                                         </div>
                                         @endif
