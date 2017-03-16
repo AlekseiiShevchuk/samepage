@@ -20,6 +20,9 @@ class FCMService
     public function sendNotificationToGameOwnerAfterPlayerJoinTheGame(Game $game, Player $joinedPlayer)
     {
         $token = $game->owner->device_token;
+        if ($token == null){
+            return;
+        }
         $title = 'New player join ' . $game->name;
         $body = 'Player ' . $joinedPlayer->nickname . ' join game ' . $game->name;
 
@@ -53,6 +56,9 @@ class FCMService
                 continue;
             }
             $tokens[] = $player->device_token;
+        }
+        if(count($tokens) < 1){
+            return;
         }
         $title = 'Game ' . $game->name . ' started!';
         $body = 'Game ' . $game->name . ' started!';
