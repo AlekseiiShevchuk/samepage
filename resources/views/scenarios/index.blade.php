@@ -51,7 +51,7 @@
                                                 <img src="{{ asset('uploads/thumb/' . $singleImages->image) }}"/>
                                             </a>
                                             {!! Form::open(array(
-                                                'style' => 'display: inline; padding-top:-15px',
+                                                'style' => 'display: inline; padding-top:-80%',
                                                 'method' => 'DELETE',
                                                 'onsubmit' => "return confirm('".trans("quickadmin.are_you_sure")."');",
                                                 'route' => ['images.destroy', $singleImages->id])) !!}
