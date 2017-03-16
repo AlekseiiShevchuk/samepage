@@ -23,8 +23,6 @@ class UpdateGameResultsRequest extends FormRequest
     public function rules()
     {
         return [
-            
-            'results' => 'required',
             'results.*' => 'exists:results,id',
             'is_owner_etalon' => 'required',
             'for_game_id' => 'required',
