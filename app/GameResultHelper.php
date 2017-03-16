@@ -15,12 +15,14 @@ class GameResultHelper
         }
         $etalonNumberOfImages = $etalonResults->count();
         if ($etalonNumberOfImages < 1) {
-            throw new \BadMethodCallException('etalon number of images < 1');
+            return 0;
+            //throw new \BadMethodCallException('etalon number of images < 1');
         }
         $calculatingResults = $gameResult->results;
         $numberOfImagesInCalculatedResult = $calculatingResults->count();
         if ($numberOfImagesInCalculatedResult < 1) {
-            throw new \BadMethodCallException('number of images in game result < 1');
+            return 0;
+            //throw new \BadMethodCallException('number of images in game result < 1');
         }
         $maxCountOfImages = $numberOfImagesInCalculatedResult;
         if($etalonNumberOfImages > $numberOfImagesInCalculatedResult){
