@@ -23,7 +23,7 @@ class StoreGameResultsRequest extends FormRequest
     public function rules()
     {
         return [
-            'results.*' => 'exists:results,id',
+            'results.*' => 'sometimes|exists:results,id',
             'is_owner_etalon' => 'required',
             'for_game_id' => 'required',
             'by_player_id' => 'required',
