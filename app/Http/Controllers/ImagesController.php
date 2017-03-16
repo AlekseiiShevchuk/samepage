@@ -144,9 +144,13 @@ class ImagesController extends Controller
             return abort(401);
         }
         $image = Image::findOrFail($id);
+        $scenarios = Scenario::all();
+        foreach ($scenarios as $scenario){
+            $scenario->images()->detach($image);
+        }
         $image->delete();
 
-        return redirect()->route('images.index');
+        return redirect()->route('scenarios.index');
     }
 
     /**

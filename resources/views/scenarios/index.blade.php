@@ -28,7 +28,7 @@
                         <th>&nbsp;</th>
                     </tr>
                 </thead>
-                
+
                 <tbody>
                     @if (count($scenarios) > 0)
                         @foreach ($scenarios as $scenario)
@@ -46,31 +46,25 @@
                                 <td id="sortable{{ $scenario->id }}">
                                     @foreach ($scenario->images()->orderBy('pivot_order_num')->get() as $singleImages)
                                         @if($singleImages->image)
-                                            <a id="{{$singleImages->id}}" href="{{route('images.edit', ['id' => $singleImages->id])}}" target="_blank"><img src="{{ asset('uploads/thumb/' . $singleImages->image) }}"/></a>
+                                            <div class="inline-block">
+                                            <a href="{{route('images.edit', ['id' => $singleImages->id])}}" target="_blank">
+                                                <img src="{{ asset('uploads/thumb/' . $singleImages->image) }}"/>
+                                            </a>
+                                            {!! Form::open(array(
+                                                'style' => 'display: inline;',
+                                                'method' => 'DELETE',
+                                                'onsubmit' => "return confirm('".trans("quickadmin.are_you_sure")."');",
+                                                'route' => ['images.destroy', $singleImages->id])) !!}
+                                            {!! Form::submit('X', array('class' => 'btn btn-xs btn-circle btn-danger')) !!}
+                                            {!! Form::close() !!}
+                                        </div>
                                         @endif
                                     @endforeach
-                                        <script>
-                                            $(function () {
-                                                $('#sortable{{ $scenario->id }}').sortable({
-                                                    update: function (event, ui) {
-                                                        var postData = $(this).sortable('toArray');
-                                                        //console.log(postData);
-                                                        $.post('/scenarios/{{ $scenario->id }}/sort-images',{images: postData}, function (o) {
-                                                            console.log(o);
-                                                        }, 'json');
-                                                    }
-                                                });
-                                            });
-                                        </script>
                                 </td>
                                 <td>
 
                                     <a href="{{ route('images.create') }}?for_scenario={{$scenario->id}}" class="btn btn-xs btn-primary">add image</a>
                                     <a href="{{ route('scenarios.sortImages',[$scenario->id]) }}" class="btn btn-xs btn-primary">sort images</a>
-                                    @can('scenario_view')
-                                    <a href="{{ route('scenarios.show',[$scenario->id]) }}" class="btn btn-xs btn-primary">@lang('quickadmin.view')</a>
-                                    @endcan
-
                                     @can('scenario_edit')
                                     <a href="{{ route('scenarios.edit',[$scenario->id]) }}" class="btn btn-xs btn-info">@lang('quickadmin.edit')</a>
                                     @endcan
@@ -97,7 +91,7 @@
     </div>
 @stop
 
-@section('javascript') 
+@section('javascript')
     <script>
         @can('scenario_delete')
             window.route_mass_crud_entries_destroy = '{{ route('scenarios.mass_destroy') }}';

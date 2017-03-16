@@ -27,8 +27,6 @@ class UpdateScenariosRequest extends FormRequest
             'name' => 'required|unique:scenarios,name,'.$this->route('scenario'),
             
             'background_id' => 'required',
-            'images' => 'required',
-            'images.*' => 'exists:images,id',
         ];
     }
 }

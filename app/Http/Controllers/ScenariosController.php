@@ -68,7 +68,6 @@ class ScenariosController extends Controller
             $scenario->save();
         } else {
             $scenario = Scenario::create($request->all());
-            $scenario->images()->sync(array_filter((array)$request->input('images')));
         }
 
         return redirect()->route('scenarios.index');
@@ -88,7 +87,6 @@ class ScenariosController extends Controller
         }
         $relations = [
             'backgrounds' => \App\Background::get()->pluck('name', 'id')->prepend('Please select', ''),
-            'images' => \App\Image::get()->pluck('name', 'id'),
         ];
 
         $scenario = Scenario::findOrFail($id);
@@ -146,7 +144,6 @@ class ScenariosController extends Controller
         }
         $scenario = Scenario::findOrFail($id);
         $scenario->update($request->all());
-        $scenario->images()->sync(array_filter((array)$request->input('images')));
 
         return redirect()->route('scenarios.index');
     }

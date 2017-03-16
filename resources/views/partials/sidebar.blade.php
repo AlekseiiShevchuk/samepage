@@ -56,15 +56,6 @@
             @endcan
             
             @can('game_mod_access')
-            <li>
-                <a href="#">
-                    <i class="fa fa-gears"></i>
-                    <span class="title">@lang('quickadmin.game-mod.title')</span>
-                    <span class="fa arrow"></span>
-                </a>
-                <ul class="sub-menu">
-                
-                @can('scenario_access')
                 <li class="{{ $request->segment(1) == 'scenarios' ? 'active active-sub' : '' }}">
                         <a href="{{ route('scenarios.index') }}">
                             <i class="fa fa-gears"></i>
@@ -73,29 +64,6 @@
                             </span>
                         </a>
                     </li>
-                @endcan
-                @can('background_access')
-                <li class="{{ $request->segment(1) == 'backgrounds' ? 'active active-sub' : '' }}">
-                        <a href="{{ route('backgrounds.index') }}">
-                            <i class="fa fa-gears"></i>
-                            <span class="title">
-                                @lang('quickadmin.backgrounds.title')
-                            </span>
-                        </a>
-                    </li>
-                @endcan
-                @can('image_access')
-                <li class="{{ $request->segment(1) == 'images' ? 'active active-sub' : '' }}">
-                        <a href="{{ route('images.index') }}">
-                            <i class="fa fa-gears"></i>
-                            <span class="title">
-                                @lang('quickadmin.images.title')
-                            </span>
-                        </a>
-                    </li>
-                @endcan
-                </ul>
-            </li>
             @endcan
             @can('game_access')
             <li class="{{ $request->segment(1) == 'games' ? 'active' : '' }}">

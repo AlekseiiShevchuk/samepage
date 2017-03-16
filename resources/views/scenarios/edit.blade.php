@@ -46,18 +46,6 @@
                     @endif
                 </div>
             </div>
-            <div class="row">
-                <div class="col-xs-12 form-group">
-                    {!! Form::label('images', 'Images*', ['class' => 'control-label']) !!}
-                    {!! Form::select('images[]', $images, old('images') ? old('images') : $scenario->images->pluck('id')->toArray(), ['class' => 'form-control select2', 'multiple' => 'multiple', 'id'=>'sortable']) !!}
-                    <p class="help-block"></p>
-                    @if($errors->has('images'))
-                        <p class="help-block">
-                            {{ $errors->first('images') }}
-                        </p>
-                    @endif
-                </div>
-            </div>
             
         </div>
     </div>
