@@ -35,23 +35,25 @@ class GamesController extends Controller
     {
         $game = Game::findOrFail($id);
 
-        if($game->status == Game::STARTED){
+        if ($game->status == Game::STARTED) {
             throw new BadRequestHttpException('This game is already started');
         }
 
         $game->players()->syncWithoutDetaching([Auth::user()->id]);
+        try {
+            (new FCMService())->sendNotificationToGameOwnerAfterPlayerJoinTheGame($game, Auth::user());
+        } finally {
+            return $game->load([
+                'scenario',
+                'scenario.images',
+                'scenario.background',
+                'owner',
+                'owner_etalon_result',
+                'owner_etalon_result.results',
+                'players',
+            ]);
+        }
 
-        (new FCMService())->sendNotificationToGameOwnerAfterPlayerJoinTheGame($game,Auth::user());
-
-        return $game->load([
-            'scenario',
-            'scenario.images',
-            'scenario.background',
-            'owner',
-            'owner_etalon_result',
-            'owner_etalon_result.results',
-            'players',
-        ]);
     }
 
     public function activity($id)
@@ -78,16 +80,18 @@ class GamesController extends Controller
     {
         $game = Game::findOrFail($id);
 
-        if($game->status == Game::STARTED){
+        if ($game->status == Game::STARTED) {
             throw new BadRequestHttpException('This game is already started');
         }
 
         $game->status = Game::STARTED;
         $game->save();
+        try {
+            (new FCMService())->sendNotificationToPlayersAboutGameStarted($game);
+        } finally {
+            return response()->json('Game successfully started');
+        }
 
-        (new FCMService())->sendNotificationToPlayersAboutGameStarted($game);
-
-        return response()->json('Game successfully started');
     }
 
     public function update(UpdateGamesRequest $request, $id)
@@ -100,7 +104,7 @@ class GamesController extends Controller
 
     public function store(StoreGamesRequest $request)
     {
-        $game = Game::create($request->only(['name', 'is_active', 'scenario_id','time_limit']));
+        $game = Game::create($request->only(['name', 'is_active', 'scenario_id', 'time_limit']));
         $game->owner_id = Auth::user()->id;
         $game->save();
         return $game;
