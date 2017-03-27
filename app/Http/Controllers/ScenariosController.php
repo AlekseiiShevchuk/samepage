@@ -43,6 +43,7 @@ class ScenariosController extends Controller
         $relations = [
             'backgrounds' => \App\Background::get()->pluck('name', 'id')->prepend('Please select', ''),
             'images' => \App\Image::get()->pluck('name', 'id'),
+            'sections' => \App\Section::get()->pluck('name', 'id')->prepend('Please select', ''),
         ];
 
         return view('scenarios.create', $relations);
@@ -87,6 +88,7 @@ class ScenariosController extends Controller
         }
         $relations = [
             'backgrounds' => \App\Background::get()->pluck('name', 'id')->prepend('Please select', ''),
+            'sections' => \App\Section::get()->pluck('name', 'id')->prepend('Please select', ''),
         ];
 
         $scenario = Scenario::findOrFail($id);

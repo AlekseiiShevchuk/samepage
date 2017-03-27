@@ -22,6 +22,7 @@
                         @endcan
 
                         <th>@lang('quickadmin.scenarios.fields.name')</th>
+                        <th>Section</th>
                         <th>@lang('quickadmin.scenarios.fields.description')</th>
                         <th>@lang('quickadmin.scenarios.fields.background')</th>
                         <th>@lang('quickadmin.scenarios.fields.images')</th>
@@ -38,6 +39,7 @@
                                 @endcan
 
                                 <td>{{ $scenario->name }}</td>
+                                <td>{{ $scenario->section->name or '' }}</td>
                                 <td>{{ $scenario->description }}</td>
                                 <td>
                                     <a href="{{route('backgrounds.edit', ['id' => $scenario->background->id])}}" target="_blank"><img src="{{ asset('uploads/thumb/' . $scenario->background->background_image) }}"/></a>

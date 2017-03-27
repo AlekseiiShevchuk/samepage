@@ -25,6 +25,7 @@ class StoreScenariosRequest extends FormRequest
         return [
             'name' => 'required|unique:scenarios,name',
             'background_id' => 'required_without:background_image',
+            'section_id' => 'required',
             'background_image' => 'required_without:background_id',
         ];
     }
