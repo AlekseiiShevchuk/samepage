@@ -54,7 +54,14 @@
                 </a>
             </li>
             @endcan
-            
+            @can('section_access')
+                <li class="{{ $request->segment(1) == 'sections' ? 'active' : '' }}">
+                    <a href="{{ route('sections.index') }}">
+                        <i class="fa fa-gears"></i>
+                        <span class="title">@lang('quickadmin.section.title')</span>
+                    </a>
+                </li>
+            @endcan
             @can('game_mod_access')
                 <li class="{{ $request->segment(1) == 'scenarios' ? 'active active-sub' : '' }}">
                         <a href="{{ route('scenarios.index') }}">

@@ -42,4 +42,7 @@ Route::group(['middleware' => 'auth'], function () {
     Route::post('results_mass_destroy', ['uses' => 'ResultsController@massDestroy', 'as' => 'results.mass_destroy']);
     Route::resource('game_results', 'GameResultsController');
     Route::post('game_results_mass_destroy', ['uses' => 'GameResultsController@massDestroy', 'as' => 'game_results.mass_destroy']);
+
+    Route::resource('sections', 'SectionsController');
+    Route::post('sections_mass_destroy', ['uses' => 'SectionsController@massDestroy', 'as' => 'sections.mass_destroy']);
 });

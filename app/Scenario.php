@@ -41,5 +41,10 @@ class Scenario extends Model
             ->withPivot(['order_num'])
             ;
     }
+
+    public function section()
+    {
+        return $this->belongsTo(Section::class,'section_id');
+    }
     
 }

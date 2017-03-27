@@ -191,5 +191,22 @@ class AuthServiceProvider extends ServiceProvider
             return in_array($user->role_id, [1]);
         });
 
+        // Auth gates for: Section
+        Gate::define('section_access', function ($user) {
+            return in_array($user->role_id, [1]);
+        });
+        Gate::define('section_create', function ($user) {
+            return in_array($user->role_id, [1]);
+        });
+        Gate::define('section_edit', function ($user) {
+            return in_array($user->role_id, [1]);
+        });
+        Gate::define('section_view', function ($user) {
+            return in_array($user->role_id, [1]);
+        });
+        Gate::define('section_delete', function ($user) {
+            return in_array($user->role_id, [1]);
+        });
+
     }
 }

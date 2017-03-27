@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Api\V1;
 
 use App\Scenario;
+use App\Section;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\StoreScenariosRequest;
@@ -12,7 +13,9 @@ class ScenariosController extends Controller
 {
     public function index()
     {
-        return Scenario::all()->load('background');
+        $sections = Section::has('scenarios')->with('scenarios.background')->get();
+
+        return $sections;
     }
 
     public function show($id)
