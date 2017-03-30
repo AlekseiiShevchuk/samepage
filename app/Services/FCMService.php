@@ -75,7 +75,7 @@ class FCMService
         $notification = $notificationBuilder->build();
         $data = $dataBuilder->build();
 
-        $downstreamResponse = FCM::sendTo($token, $option, $notification, $data);
+        $downstreamResponse = FCM::sendTo($tokens, $option, $notification, $data);
     }
 
     /**
