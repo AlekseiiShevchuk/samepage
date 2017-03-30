@@ -20,7 +20,42 @@ class FCMService
     public function sendNotificationToGameOwnerAfterPlayerJoinTheGame(Game $game, Player $joinedPlayer)
     {
         $token = $game->owner->device_token;
-        if ($token == null){
+        if ($token == null) {
+            return;
+        }
+        $title = 'New player join ' . $game->name;
+        $body = 'Player ' . $joinedPlayer->nickname . ' join game ' . $game->name;
+
+        $optionBuiler = new OptionsBuilder();
+        $optionBuiler->setTimeToLive(60 * 20);
+
+        $notificationBuilder = new PayloadNotificationBuilder($title);
+        $notificationBuilder->setBody($body)
+            ->setSound('default');
+
+        $dataBuilder = new PayloadDataBuilder();
+        $dataBuilder->addData(['type' => 'player_joined']);
+
+        $option = $optionBuiler->build();
+        $notification = $notificationBuilder->build();
+        $data = $dataBuilder->build();
+
+        $downstreamResponse = FCM::sendTo($token, $option, $notification, $data);
+    }
+
+    public function sendNotificationToAllGamePlayersAndGameOwnerAfterPlayerJoinTheGame(Game $game, Player $joinedPlayer)
+    {
+        $tokens = [];
+        foreach ($game->players as $player) {
+            if (empty($player->device_token) || $player->id == $game->owner->id) {
+                continue;
+            }
+            $tokens[] = $player->device_token;
+        }
+        if (!empty($game->owner->device_token)) {
+            $tokens[] = $game->owner->device_token;
+        }
+        if (count($tokens) < 1) {
             return;
         }
         $title = 'New player join ' . $game->name;
@@ -57,7 +92,7 @@ class FCMService
             }
             $tokens[] = $player->device_token;
         }
-        if(count($tokens) < 1){
+        if (count($tokens) < 1) {
             return;
         }
         $title = 'Game ' . $game->name . ' started!';

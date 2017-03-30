@@ -41,7 +41,7 @@ class GamesController extends Controller
 
         $game->players()->syncWithoutDetaching([Auth::user()->id]);
         try {
-            (new FCMService())->sendNotificationToGameOwnerAfterPlayerJoinTheGame($game, Auth::user());
+            (new FCMService())->sendNotificationToAllGamePlayersAndGameOwnerAfterPlayerJoinTheGame($game, Auth::user());
         } finally {
             return $game->load([
                 'scenario',
