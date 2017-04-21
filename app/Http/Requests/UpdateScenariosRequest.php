@@ -28,6 +28,9 @@ class UpdateScenariosRequest extends FormRequest
             
             'background_id' => 'required',
             'section_id' => 'required',
+            'bottom_scale' => 'required|integer|between:1,100',
+            'center_scale' => 'required|integer|between:1,100',
+            'top_scale' => 'required|integer|between:1,100'
         ];
     }
 }

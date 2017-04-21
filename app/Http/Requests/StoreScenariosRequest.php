@@ -27,6 +27,9 @@ class StoreScenariosRequest extends FormRequest
             'background_id' => 'required_without:background_image',
             'section_id' => 'required',
             'background_image' => 'required_without:background_id',
+            'bottom_scale' => 'required|integer|between:1,100',
+            'center_scale' => 'required|integer|between:1,100',
+            'top_scale' => 'required|integer|between:1,100'
         ];
     }
 }
