@@ -23,7 +23,7 @@
 
                         <th>@lang('quickadmin.scenarios.fields.name')</th>
                         <th>Section</th>
-                        <th>Scale Bottom/Center/Top</th>
+                        <th>Scale Bottom/<br>Scale Center/<br>Scale Top/<br>Horizon height</th>
                         <th>@lang('quickadmin.scenarios.fields.description')</th>
                         <th>@lang('quickadmin.scenarios.fields.background')</th>
                         <th>@lang('quickadmin.scenarios.fields.images')</th>
@@ -41,7 +41,7 @@
 
                                 <td>{{ $scenario->name }}</td>
                                 <td>{{ $scenario->section->name or '' }}</td>
-                                <td>{{ $scenario->bottom_scale}}/{{ $scenario->center_scale}}/{{ $scenario->top_scale}}</td>
+                                <td>{{ $scenario->bottom_scale}}/{{ $scenario->center_scale}}/{{ $scenario->top_scale}}/{{ $scenario->horizon_height}}</td>
                                 <td>{{ $scenario->description }}</td>
                                 <td>
                                     <a href="{{route('backgrounds.edit', ['id' => $scenario->background->id])}}" target="_blank"><img src="{{ asset('uploads/thumb/' . $scenario->background->background_image) }}"/></a>
