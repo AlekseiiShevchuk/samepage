@@ -16,7 +16,7 @@ class Scenario extends Model
 {
     use SoftDeletes;
     
-    protected $fillable = ['name', 'description', 'background_id', 'section_id', 'bottom_scale', 'center_scale', 'top_scale'];
+    protected $fillable = ['name', 'description', 'background_id', 'section_id', 'bottom_scale', 'center_scale', 'top_scale' , 'horizon_height'];
     protected $hidden = ['deleted_at','updated_at','created_at','pivot'];
     
 
