@@ -17,7 +17,7 @@ class Result extends Model
 {
     use SoftDeletes;
     
-    protected $fillable = ['x_coordinate', 'y_coordinate', 'rotary_angle', 'for_image_id'];
+    protected $fillable = ['x_coordinate', 'y_coordinate', 'rotary_angle', 'for_image_id', 'size_scale'];
     protected $hidden = ['deleted_at','updated_at','created_at','pivot'];
 
     /**
