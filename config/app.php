@@ -183,6 +183,8 @@ return [
         Intervention\Image\ImageServiceProvider::class,
         Collective\Html\HtmlServiceProvider::class,
         LaravelFCM\FCMServiceProvider::class,
+        Laracasts\Flash\FlashServiceProvider::class,
+        Maatwebsite\Excel\ExcelServiceProvider::class,
         
         /*
          * Application Service Providers...
@@ -248,6 +250,7 @@ return [
 
         'FCM'      => LaravelFCM\Facades\FCM::class,
         'FCMGroup' => LaravelFCM\Facades\FCMGroup::class,
+        'Excel' => Maatwebsite\Excel\Facades\Excel::class,
 
     ],
 

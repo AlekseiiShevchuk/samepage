@@ -12,11 +12,11 @@
                 <button class="btn btn-primary">Import File</button>
             </form>
         <br>
-            <a href="/admin/excel-export/xls" target="_blank">Download Excel xls</a> |
-            <a href="/admin/excel-export/xlsx" target="_blank">Download Excel xlsx</a>
+            <a href="/excel-export/xls" target="_blank">Download Excel xls</a> |
+            <a href="/excel-export/xlsx" target="_blank">Download Excel xlsx</a>
             {{--<a href="/api/excel-export/csv" target="_blank">Download CSV</a>--}}
         @include('flash::message')
-    {!! Form::open(['method' => 'PUT', 'action' => 'Admin\TranslationItemsController@massUpdate']) !!}
+    {!! Form::open(['method' => 'PUT', 'action' => 'TranslationItemsController@massUpdate']) !!}
         <div class="panel-body">
             <table class="table table-bordered table-striped">
                 <thead>

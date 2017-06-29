@@ -203,7 +203,7 @@ class TranslationItemsController extends Controller
     {
         $data = TranslationItem::orderBy('value_name')->get(\App\Language::getAvailableColumnsForTranslationItems())->toArray();
 
-        return Excel::create('Matte_monster_translations', function ($excel) use ($data) {
+        return Excel::create('Samepage_translations', function ($excel) use ($data) {
             $excel->sheet('main', function ($sheet) use ($data) {
                 $sheet->fromArray($data);
             });
