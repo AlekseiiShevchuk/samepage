@@ -45,4 +45,20 @@ Route::group(['middleware' => 'auth'], function () {
 
     Route::resource('sections', 'SectionsController');
     Route::post('sections_mass_destroy', ['uses' => 'SectionsController@massDestroy', 'as' => 'sections.mass_destroy']);
+
+
+    Route::resource('languages', 'LanguagesController');
+    Route::post('languages_mass_destroy',
+        ['uses' => 'LanguagesController@massDestroy', 'as' => 'languages.mass_destroy']);
+
+    Route::resource('translation_items', 'TranslationItemsController');
+    Route::post('translation_items_mass_destroy',
+        ['uses' => 'TranslationItemsController@massDestroy', 'as' => 'translation_items.mass_destroy']);
+    Route::put('translation_items_mass_update',
+        ['uses' => 'TranslationItemsController@massUpdate'])->name('translation_items.mass_update');
+
+    Route::post('/excel-import', 'TranslationItemsController@importExcel');
+
+    Route::get('/excel-export/{type}', 'TranslationItemsController@exportExcel');
+
 });

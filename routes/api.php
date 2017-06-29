@@ -27,4 +27,6 @@ Route::group(['prefix' => 'api/v1', 'namespace' => 'Api\V1', 'as' => 'api.'], fu
 
         Route::resource('game_results', 'GameResultsController');
 
+        Route::get('languages', 'LanguagesController@index');
+
 });

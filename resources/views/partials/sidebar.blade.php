@@ -98,6 +98,19 @@
                 </a>
             </li>
             @endcan
+
+            <li class="{{ $request->segment(2) == 'languages' ? 'active' : '' }}">
+                <a href="{{ route('languages.index') }}">
+                    <i class="fa fa-gears"></i>
+                    <span class="title">@lang('quickadmin.languages.title')</span>
+                </a>
+            </li>
+            <li class="{{ $request->segment(2) == 'translation_items' ? 'active' : '' }}">
+                <a href="{{ route('translation_items.index') }}">
+                    <i class="fa fa-gears"></i>
+                    <span class="title">@lang('quickadmin.translation-items.title')</span>
+                </a>
+            </li>
             
 
             <li>
