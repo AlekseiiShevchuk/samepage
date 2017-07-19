@@ -51,7 +51,7 @@
                                     @foreach ($scenario->images()->orderBy('pivot_order_num')->get() as $singleImages)
                                         @if($singleImages->image)
                                             <div class="inline-block">
-                                            <a href="{{route('images.edit', ['id' => $singleImages->id])}}" target="_blank">
+                                            <a href="{{route('images.edit', ['id' => $singleImages->id])}}">
                                                 <img src="{{ asset('uploads/thumb/' . $singleImages->image) }}"/>
                                             </a>
                                             {!! Form::open(array(

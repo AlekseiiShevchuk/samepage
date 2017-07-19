@@ -103,7 +103,7 @@ class ImagesController extends Controller
         $image = Image::findOrFail($id);
         $image->update($request->all());
 
-        return redirect()->route('images.index');
+        return redirect()->route('scenarios.index');
     }
 
 
