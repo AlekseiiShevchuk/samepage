@@ -25,7 +25,6 @@ class UpdateScenariosRequest extends FormRequest
         return [
             
             'name' => 'required|unique:scenarios,name,'.$this->route('scenario'),
-            
             'background_id' => 'required',
             'section_id' => 'required',
             'bottom_scale' => 'required|integer|between:1,100',

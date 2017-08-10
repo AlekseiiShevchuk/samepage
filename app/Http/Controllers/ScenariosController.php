@@ -68,6 +68,7 @@ class ScenariosController extends Controller
             $scenario->images()->sync(array_filter((array)$request->input('images')));
             $scenario->save();
         } else {
+            $request = $this->saveFiles($request);
             $scenario = Scenario::create($request->all());
         }
 
@@ -144,6 +145,7 @@ class ScenariosController extends Controller
         if (!Gate::allows('scenario_edit')) {
             return abort(401);
         }
+        $request = $this->saveFiles($request);
         $scenario = Scenario::findOrFail($id);
         $scenario->update($request->all());
 

@@ -2,7 +2,7 @@
 @section('content')
     <h3 class="page-title">@lang('quickadmin.scenarios.title')</h3>
     
-    {!! Form::model($scenario, ['method' => 'PUT', 'route' => ['scenarios.update', $scenario->id]]) !!}
+    {!! Form::model($scenario, ['method' => 'PUT', 'route' => ['scenarios.update', $scenario->id], 'files' => true,]) !!}
 
     <div class="panel panel-default">
         <div class="panel-heading">
@@ -30,6 +30,24 @@
                     @if($errors->has('section_id'))
                         <p class="help-block">
                             {{ $errors->first('section_id') }}
+                        </p>
+                    @endif
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-xs-12 form-group">
+                    @if ($scenario->cover_image)
+                        <a href="{{ asset('uploads/'.$scenario->cover_image) }}" target="_blank"><img src="{{ asset('uploads/thumb/'.$scenario->cover_image) }}"></a>
+                    @endif
+                    {!! Form::label('cover_image', 'Cover Image', ['class' => 'control-label']) !!}
+                    {!! Form::file('cover_image', ['class' => 'form-control', 'style' => 'margin-top: 4px;']) !!}
+                    {!! Form::hidden('cover_image_max_size', 8) !!}
+                    {!! Form::hidden('cover_image_max_width', 4000) !!}
+                    {!! Form::hidden('cover_image_max_height', 4000) !!}
+                    <p class="help-block"></p>
+                    @if($errors->has('cover_image'))
+                        <p class="help-block">
+                            {{ $errors->first('cover_image') }}
                         </p>
                     @endif
                 </div>

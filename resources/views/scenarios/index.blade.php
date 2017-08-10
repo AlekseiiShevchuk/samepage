@@ -25,6 +25,7 @@
                         <th>Section</th>
                         <th>Scale Bottom/<br>Scale Center/<br>Scale Top/<br>Horizon height</th>
                         <th>@lang('quickadmin.scenarios.fields.description')</th>
+                        <th>Cover Image</th>
                         <th>@lang('quickadmin.scenarios.fields.background')</th>
                         <th>@lang('quickadmin.scenarios.fields.images')</th>
                         <th>&nbsp;</th>
@@ -43,6 +44,9 @@
                                 <td>{{ $scenario->section->name or '' }}</td>
                                 <td>{{ $scenario->bottom_scale}}/{{ $scenario->center_scale}}/{{ $scenario->top_scale}}/{{ $scenario->horizon_height}}</td>
                                 <td>{{ $scenario->description }}</td>
+                                <td>
+                                    <img src="{{ asset('uploads/thumb/' . $scenario->cover_image) }}"/>
+                                </td>
                                 <td>
                                     <a href="{{route('backgrounds.edit', ['id' => $scenario->background->id])}}" target="_blank"><img src="{{ asset('uploads/thumb/' . $scenario->background->background_image) }}"/></a>
                                     {{--{{ $scenario->background->name or '' }}--}}
