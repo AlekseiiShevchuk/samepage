@@ -2,6 +2,7 @@
 
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
+use Illuminate\Support\Facades\DB;
 
 class Create1494359121TranslationItemsTable extends Migration
 {
@@ -15,11 +16,16 @@ class Create1494359121TranslationItemsTable extends Migration
         Schema::create('translation_items', function (Blueprint $table) {
             $table->increments('id');
             $table->string('value_name');
+
+            $table->timestamps();
+
+        });
+        DB::statement('ALTER TABLE translation_items ENGINE = MyISAM');
+
+        Schema::table('translation_items', function (Blueprint $table) {
             foreach (\App\Language::all() as $language) {
                 $table->text('value_' . $language->abbreviation)->nullable();
             }
-            $table->timestamps();
-
         });
     }
 
